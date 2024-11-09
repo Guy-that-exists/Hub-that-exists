@@ -1,21 +1,21 @@
 local teleportFunc = queueonteleport or queue_on_teleport
 if teleportFunc then
-    queue_on_teleport([[
-        if not game:IsLoaded() then
-            game.Loaded:Wait()
-        end
-        repeat wait() until game.Players.LocalPlayer
-        for i,v in pairs(workspace.Furniture.jorgisBasketballs:GetChildren()) do
-				    if v:FindFirstChild("ClickDetector") then
-						    fireclickdetector(v.ClickDetector)
-    				end
-				end
-				game.Players.LocalPlayer.Backpack:WaitForChild("Basketball")
-				for i,v in pairs(workspace.Furniture.jorgisDresser:GetDescendants()) do
-				    if v.Name == ("Handle") then
-					      fireclickdetector(v.ClickDetector)
-            end
-				end
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Furniture.finalDoor.Base.Base.CFrame * CFrame.new(0,0,0.5)
-    ]])
+	queue_on_teleport([[
+		if not game:IsLoaded() then
+			game.Loaded:Wait()
+        	end
+        	repeat wait() until game.Players.LocalPlayer
+        	for i,v in pairs(workspace.Furniture.jorgisBasketballs:GetChildren()) do
+			if v:FindFirstChild("ClickDetector") then
+				fireclickdetector(v.ClickDetector)
+    			end
+		end
+		game.Players.LocalPlayer.Backpack:WaitForChild("Basketball")
+		for i,v in pairs(workspace.Furniture.jorgisDresser:GetDescendants()) do
+			if v.Name == ("Handle") then
+				fireclickdetector(v.ClickDetector)
+    			end
+		end
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = workspace.Furniture.finalDoor.Base.Base.CFrame * CFrame.new(0,0,0.5)
+    	]])
 end
