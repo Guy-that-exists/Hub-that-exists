@@ -11,6 +11,7 @@ if teleportFunc then
     			end
 		end
 		game.Players.LocalPlayer.Backpack:WaitForChild("Basketball")
+		wait()
 		for i,v in pairs(workspace.Furniture.jorgisDresser:GetDescendants()) do
 			if v.Name == ("Handle") then
 				fireclickdetector(v.ClickDetector)
