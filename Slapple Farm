@@ -2,17 +2,17 @@ if not game:IsLoaded() then
     game.Loaded:Wait()
 end
 repeat task.wait() until game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
-for i, v in pairs(workspace.Arena.island5.Slapples:GetDescendants()) do
-    if v:FindFirstChildWhichIsA("TouchTransmitter") then
-	if not game.Players.LocalPlayer.Character:FindFirstChild("entered") then
-    		repeat task.wait()
-        	firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), workspace.Lobby.Portals.DefaultOnly.PortalTrigger, 0)
-		firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), workspace.Lobby.Portals.DefaultOnly.PortalTrigger, 1)
-   		until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+for i, v in pairs(workspace.Arena.island5.Slapples:GetChildren()) do
+	if v.Glove:FindFirstChild("TouchInterest") then
+		if not game.Players.LocalPlayer.Character:FindFirstChild("entered") then
+    			repeat task.wait()
+        		firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), workspace.Lobby.Portals.DefaultOnly.PortalTrigger, 0)
+			firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), workspace.Lobby.Portals.DefaultOnly.PortalTrigger, 1)
+   			until game.Players.LocalPlayer.Character:FindFirstChild("entered")
+		end
+		firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Glove, 0)
+		firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Glove, 1)
 	end
-        firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 0)
-        firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 1)
-    end
 end
 local serverList = {}
 for _, v in ipairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
