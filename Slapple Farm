@@ -6,8 +6,8 @@ for i, v in pairs(workspace.Arena.island5.Slapples:GetChildren()) do
 	if v.Glove:FindFirstChild("TouchInterest") then
 		if not game.Players.LocalPlayer.Character:FindFirstChild("entered") then
     			repeat task.wait()
-        		firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), workspace.Lobby.Teleport1, 0)
-			firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), workspace.Lobby.Teleport1, 1)
+        		firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), workspace.Lobby.Teleport2, 0)
+			firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), workspace.Lobby.Teleport2, 1)
    			until game.Players.LocalPlayer.Character:FindFirstChild("entered")
 		end
 		firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Glove, 0)
