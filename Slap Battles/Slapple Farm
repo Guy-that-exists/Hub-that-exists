@@ -2,7 +2,7 @@ if not game:IsLoaded() then
     game.Loaded:Wait()
 end
 repeat task.wait() until game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
-while wait(5) do
+while true do
 	for i, v in pairs(workspace.Arena.island5.Slapples:GetChildren()) do
 		if v.Glove:FindFirstChild("TouchInterest") then
 			if not game.Players.LocalPlayer.Character:FindFirstChild("entered") then
@@ -26,4 +26,5 @@ while wait(5) do
 	else
     		error("No servers found")
 	end
+	wait(5)
 end
