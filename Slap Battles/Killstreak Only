@@ -117,7 +117,7 @@ local Player = GUI:Tab{
 User = game.Players.LocalPlayer
 
 Combat:Slider{
-	Name = "Slap Aura (don't forget to fix)",
+	Name = "Slap Aura",
 	Default = 0,
 	Min = 0,
 	Max = 20,
