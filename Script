@@ -4,4 +4,6 @@ elseif game.PlaceId == 11520107397 then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Guy-that-exists/Hub-that-exists/main/Slap%20Battles/Killstreak%20Only"))()
 elseif game.PlaceId == 9431156611 then
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/Guy-that-exists/Hub-that-exists/main/Slap%20Battles/Slap%20Royale"))()
+else
+	game:GetService("StarterGui"):SetCore("SendNotification",{Title = "This game isn't supported.",Text = "",Icon = "rbxassetid://7733658504",Duration = 10})
 end
