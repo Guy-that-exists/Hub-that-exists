@@ -1,1 +1,1896 @@
+-- Message guythatexists. if you have issues or suggestions, please give credits if you want to use or edit this
 
+if not game:IsLoaded() then
+	game.Loaded:Wait()
+end
+
+game:GetService("GuiService"):ClearError()
+
+local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/Guy-that-exists/mercury-lib-edit/master/src.lua"))()
+
+if game.ReplicatedStorage:FindFirstChild("AdminGUI") then
+	game.ReplicatedStorage.AdminGUI:Destroy()
+end
+if game.ReplicatedStorage:FindFirstChild("Ban") then
+	game.ReplicatedStorage.Ban:Destroy()
+end
+if game.StarterPlayer.StarterPlayerScripts:FindFirstChild("ClientAnticheat") then
+	game.StarterPlayer.StarterPlayerScripts.ClientAnticheat:Destroy()
+end
+if game.ReplicatedStorage:FindFirstChild("GRAB") then
+	game.ReplicatedStorage.GRAB:Destroy()
+end
+if game.ReplicatedStorage:FindFirstChild("SpecialGloveAccess") then
+	game.ReplicatedStorage.SpecialGloveAccess:Destroy()
+end
+if game.ReplicatedStorage:FindFirstChild("WalkSpeedChanged") then
+	game.ReplicatedStorage.WalkSpeedChanged:Destroy()
+end
+
+slapRemotes = {
+	Extended = game.ReplicatedStorage.b,
+
+	ZZZZZZZ = game.ReplicatedStorage.ZZZZZZZHit,
+	Brick = game.ReplicatedStorage.BrickHit,
+	Snow = game.ReplicatedStorage.SnowHit,
+	Pull = game.ReplicatedStorage.PullHit,
+	Flash = game.ReplicatedStorage.FlashHit,
+	Spring = game.ReplicatedStorage.springhit,
+	Swapper = game.ReplicatedStorage.HitSwapper,
+	Bull = game.ReplicatedStorage.BullHit,
+	Dice = game.ReplicatedStorage.DiceHit,
+	Ghost = game.ReplicatedStorage.GhostHit,
+	Stun = game.ReplicatedStorage.HtStun,
+	["Za Hando"] = game.ReplicatedStorage.zhramt,
+	Fort = game.ReplicatedStorage.Fort,
+	Magnet = game.ReplicatedStorage.MagnetHIT,
+	Pusher = game.ReplicatedStorage.PusherHit,
+	Anchor = game.ReplicatedStorage.hitAnchor,
+	Space = game.ReplicatedStorage.HtSpace,
+	Boomerang = game.ReplicatedStorage.BoomerangH,
+	Speedrun = game.ReplicatedStorage.Speedrunhit,
+	Mail = game.ReplicatedStorage.MailHit,
+	Golden = game.ReplicatedStorage.GoldenHit,
+	MR = game.ReplicatedStorage.MisterHit,
+	Reaper = game.ReplicatedStorage.ReaperHit,
+	Replica = game.ReplicatedStorage.ReplicaHit,
+	Defense = game.ReplicatedStorage.DefenseHit,
+	Killstreak = game.ReplicatedStorage.KSHit,
+	Reverse = game.ReplicatedStorage.ReverseHit,
+	Shukuchi = game.ReplicatedStorage.ShukuchiHit,
+	Duelist = game.ReplicatedStorage.DuelistHit,
+	woah = game.ReplicatedStorage.woahHit,
+	Ice = game.ReplicatedStorage.IceHit,
+	Adios = game.ReplicatedStorage.hitAdios,
+	Blocked = game.ReplicatedStorage.BlockedHit,
+	Engineer = game.ReplicatedStorage.engiehit,
+	Rocky = game.ReplicatedStorage.RockyHit,
+	Conveyor = game.ReplicatedStorage.ConvHit,
+	STOP = game.ReplicatedStorage.STOP,
+	Phantom = game.ReplicatedStorage.PhantomHit,
+	Wormhole = game.ReplicatedStorage.WormHit,
+	Acrobat = game.ReplicatedStorage.AcHit,
+	Plague = game.ReplicatedStorage.PlagueHit,
+	["[REDACTED]"] = game.ReplicatedStorage.ReHit,
+	bus = game.ReplicatedStorage.hitbus,
+	Phase = game.ReplicatedStorage.PhaseH,
+	Warp = game.ReplicatedStorage.WarpHt,
+	Bomb = game.ReplicatedStorage.BombHit,
+	Bubble = game.ReplicatedStorage.BubbleHit,
+	Jet = game.ReplicatedStorage.JetHit,
+	Shard = game.ReplicatedStorage.ShardHIT,
+	potato = game.ReplicatedStorage.potatohit,
+	CULT = game.ReplicatedStorage.CULTHit,
+	bob = game.ReplicatedStorage.bobhit,
+	Buddies = game.ReplicatedStorage.buddiesHIT,
+	Spy = game.ReplicatedStorage.SpyHit,
+	Detonator = game.ReplicatedStorage.DetonatorHit,
+	Rage = game.ReplicatedStorage.GRRRR,
+	Trap = game.ReplicatedStorage.traphi,
+	Orbit = game.ReplicatedStorage.Orbihit,
+	Hybrid = game.ReplicatedStorage.HybridCLAP,
+	Slapple = game.ReplicatedStorage.SlappleHit,
+	Disarm = game.ReplicatedStorage.DisarmH,
+	Dominance = game.ReplicatedStorage.DominanceHit,
+	Link = game.ReplicatedStorage.LinkHit,
+	Rojo = game.ReplicatedStorage.RojoHit,
+	rob = game.ReplicatedStorage.robhit,
+	Rhythm = game.ReplicatedStorage.rhythmhit,
+	Nightmare = game.ReplicatedStorage.nightmarehit,
+	Hitman = game.ReplicatedStorage.HitmanHit,
+	Thor = game.ReplicatedStorage.ThorHit,
+	Retro = game.ReplicatedStorage.RetroHit,
+	Cloud = game.ReplicatedStorage.CloudHit,
+	Null = game.ReplicatedStorage.NullHit,
+	spin = game.ReplicatedStorage.spinhit,
+
+	Poltergeist = game.ReplicatedStorage.UTGHit,
+	Clock = game.ReplicatedStorage.UTGHit,
+	["Untitled Tag Glove"] = game.ReplicatedStorage.UTGHit,
+
+	Kinetic = game.ReplicatedStorage.HtStun,
+	Recall = game.ReplicatedStorage.HtStun,
+	Balloony = game.ReplicatedStorage.HtStun,
+	Sparky = game.ReplicatedStorage.HtStun,
+	Boogie = game.ReplicatedStorage.HtStun,
+	Stun = game.ReplicatedStorage.HtStun,
+	Coil = game.ReplicatedStorage.HtStun,
+
+	Diamond = game.ReplicatedStorage.DiamondHit,
+	Megarock = game.ReplicatedStorage.DiamondHit,
+
+	Moon = game.ReplicatedStorage.CelestialHit,
+	Jupiter = game.ReplicatedStorage.CelestialHit,
+
+	Mitten = game.ReplicatedStorage.MittenHit,
+	["Hallow Jack"] = game.ReplicatedStorage.HallowHIT,
+
+	OVERKILL = game.ReplicatedStorage.Overkillhit,
+	["The Flex"] = game.ReplicatedStorage.FlexHit,
+	Custom = game.ReplicatedStorage.CustomHit,
+	["God's Hand"] = game.ReplicatedStorage.Godshand,
+	Error = game.ReplicatedStorage.Errorhit
+}
+
+if not workspace:FindFirstChild("SafeSpot") then
+	local safeSpot = Instance.new("Part", workspace)
+	safeSpot.Position = Vector3.new(math.random(-25000,-2500),math.random(500,5000),math.random(-25000,-2500))
+	safeSpot.Name = "SafeSpot"
+	safeSpot.Anchored = true
+	safeSpot.Size = Vector3.new(512,32,512)
+	safeSpot.Transparency = 0.5
+end
+
+if not workspace:FindFirstChild("AntiVoid") then
+	local antiVoid = Instance.new("Part", workspace)
+	antiVoid.Position = Vector3.new(0, -27, 0)
+	antiVoid.Name = "AntiVoid"
+	antiVoid.Anchored = true
+	antiVoid.CanCollide = false
+	antiVoid.Size = Vector3.new(2048,16,2048)
+	antiVoid.Transparency = 1
+	antiVoid.Material = Enum.Material.ForceField
+	mesh = Instance.new("SpecialMesh", antiVoid)
+	mesh.TextureId = "rbxassetid://5101923607"
+	mesh.Scale = Vector3.new(2048,16,2048)
+end
+
+if not workspace:FindFirstChild("TAntiVoid") then
+	local antiVoid = Instance.new("Part", workspace)
+	antiVoid.Position = Vector3.new(3423, 228, -14)
+	antiVoid.Name = "TAntiVoid"
+	antiVoid.Anchored = true
+	antiVoid.CanCollide = false
+	antiVoid.Size = Vector3.new(512,16,512)
+	antiVoid.Transparency = 1
+	antiVoid.Material = Enum.Material.ForceField
+	mesh = Instance.new("SpecialMesh", antiVoid)
+	mesh.TextureId = "rbxassetid://5101923607"
+	mesh.Scale = Vector3.new(512,16,512)
+end
+
+local GUI = Mercury:Create{
+	Title = "Slap Battles hub that exists",
+	Name = "Hub that exists",
+	Size = UDim2.fromOffset(600, 400),
+	Theme = Mercury.Themes.Dark,
+	Link = "hubthatexists"
+}
+
+GUI:Credit{
+	Name = "Guy that exists",
+	Description = "Script Developer, message if you have issues or suggestions.",
+	Discord = "guythatexists."
+}
+
+GUI:Credit{
+	Name = "Script Repository",
+	Description = "Script Repository, please give credit if you wish to use or edit this.",
+	Github = "https://github.com/Guy-that-exists/Hub-that-exists"
+}
+
+local Combat = GUI:Tab{
+	Name = "Combat",
+	Icon = "rbxassetid://124159074947754"
+}
+
+local Protection = GUI:Tab{
+	Name = "Protection",
+	Icon = "rbxassetid://7734056608"
+}
+
+local Badges = GUI:Tab{
+	Name = "Badges",
+	Icon = "rbxassetid://7733673987"
+}
+
+local Gloves = GUI:Tab{
+	Name = "Gloves",
+	Icon = "rbxassetid://7733955740"
+}
+
+local Misc = GUI:Tab{
+	Name = "Miscellaneous",
+	Icon = "rbxassetid://4370318685"
+}
+
+local Player = GUI:Tab{
+	Name = "Player",
+	Icon = "rbxassetid://7743875962"
+}
+
+User = game.Players.LocalPlayer
+
+Combat:Slider{
+	Name = "Slap Aura (don't forget to fix)",
+	Default = 0,
+	Min = 0,
+	Max = 20,
+	Description = "Slaps every player near you. This is experimental, it may kick you.",
+	Callback = function(Value) 
+		getgenv().Range = Value
+		if getgenv().Range == 0 then
+			for i,v in pairs(User.Character:GetChildren()) do
+				if v.ClassName == "Tool" and v:FindFirstChild("Glove") then
+					v.Glove.CanTouch = true
+                   		end
+			end
+			for i,v in pairs(User.Backpack:GetChildren()) do
+				if v.ClassName == "Tool" and v:FindFirstChild("Glove") then
+					v.Glove.CanTouch = true
+                   		end
+			end
+		end
+	end
+}
+
+function usingParry(player)
+	for i,v in pairs(player.Character.Humanoid:GetPlayingAnimationTracks()) do
+		if v.Animation.AnimationId == "rbxassetid://16102819260" then
+			return true
+		end
+	end
+end
+
+if not getgenv().slapAura then
+	task.spawn(function()
+		getgenv().slapAura = true
+		getgenv().Range = 0
+		while wait(0.1) do
+			if getgenv().Range > 0 then
+				for i,v in pairs(User.Character:GetChildren()) do
+					if v.ClassName == "Tool" and v:FindFirstChild("Glove") then
+						v.Glove.CanTouch = false
+                   			end
+				end
+				for i,v in pairs(game.Players:GetChildren()) do
+					if v ~= User and User.Character:FindFirstChild("HumanoidRootPart") and v.Character then
+						if v.Character:FindFirstChild("HumanoidRootPart") and not v.Character.HumanoidRootPart:FindFirstChild("BlockedShield") and not v.Character:FindFirstChild("Counterd") and not v.Character:FindFirstChild("Mirage") and not v.Character:FindFirstChild("rock") and not usingParry(v) and v.Character.Ragdolled.Value == false then
+							if v.Character.isInArena.Value == true or User.leaderstats.Glove.Value == "Boxer" then
+								if not v.Character:FindFirstChild("Reversed") or User.leaderstats.Glove.Value == "Error" then
+									Magnitude = (User.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+                        						if Magnitude <= getgenv().Range then
+										if User.Character:FindFirstChild("Default") or User.Backpack:FindFirstChild("Default") then
+											game.ReplicatedStorage.b:FireServer(v.Character.HumanoidRootPart, true)
+										elseif slapRemotes[User.leaderstats.Glove.Value] then
+											slapRemotes[User.leaderstats.Glove.Value]:FireServer(v.Character.HumanoidRootPart, true)
+										elseif User.leaderstats.Glove.Value == "Boxer" then
+											game.ReplicatedStorage.Events.Boxing:FireServer(v, true)
+										else
+											game.ReplicatedStorage.GeneralHit:FireServer(v.Character.HumanoidRootPart, true)
+										end
+										for i,g in pairs(User.Character:GetChildren()) do
+											if g.ClassName == "Tool" and g:FindFirstChild("Glove") then
+												g:Activate()
+                   									end
+										end
+										wait(0.1)
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+	end)
+end
+
+Combat:Button{
+	Name = "Godmode",
+	Description = "Makes you invincible to slaps and most abilities." ,
+	Callback = function()
+		GUI:Prompt{
+		Followup = false,
+		Title = "Enable Godmode",
+		Text = "This will reset you, and may break a few gloves. Your glove also won't be seen by others.",
+		Buttons = {
+		Yes = function()
+			if not User.Character:FindFirstChild("entered") then
+				firetouchinterest(User.Character:WaitForChild("HumanoidRootPart"), workspace.Lobby.Teleport1, 0)
+				firetouchinterest(User.Character:WaitForChild("HumanoidRootPart"), workspace.Lobby.Teleport1, 1)
+			end
+			repeat wait() until User.Character:FindFirstChildOfClass("Tool") or User.Backpack:FindFirstChildOfClass("Tool")
+			for i,v in pairs(User.Character:GetChildren()) do
+				if v.ClassName == "Tool" and v:FindFirstChild("Glove") then
+					v.Parent = game.LogService
+				end
+			end
+			for i,v in pairs(User.Backpack:GetChildren()) do
+				if v.ClassName == "Tool" and v:FindFirstChild("Glove") then
+					v.Parent = game.LogService
+    				end
+			end
+			User.Character.Humanoid.Health = 0
+			wait(3.8)
+			for i,v in pairs(game.LogService:GetChildren()) do
+    				v.Parent = User.Backpack
+			end
+			User.Character.HumanoidRootPart.CFrame = CFrame.new(-4, -5, 2)	
+		end,
+		No = function()
+			return
+		end
+		}
+		}
+	end
+}
+
+Combat:Toggle{
+	Name = "Glove ESP",
+	StartingState = false,
+	Description = "Shows the glove players are using above their heads.",
+	Callback = function(Value) 
+		getgenv().gloveESP = Value
+		for i, v in pairs(game.Players:GetChildren()) do
+			if v.Character and v.Character:FindFirstChild("Head") and v.Character.Head:FindFirstChild("GloveEsp") then
+				v.Character.Head.GloveEsp:Destroy()
+    			end
+		end
+		while getgenv().gloveESP do
+			for i, v in pairs(game.Players:GetChildren()) do
+    				if v ~= User and v.Character and v.Character:FindFirstChild("Head") and v.Character:FindFirstChild("entered") and not v.Character.Head:FindFirstChild("GloveEsp") then
+					GloveEsp = Instance.new("BillboardGui", v.Character.Head)
+					GloveEsp.Name = "GloveEsp"
+					GloveEsp.Size = UDim2.new(0, 100, 0, 150)
+					GloveEsp.AlwaysOnTop = true
+					GloveEsp.StudsOffset = Vector3.new(0, -1, 0)
+					GloveEspText = Instance.new("TextLabel", GloveEsp)
+					GloveEspText.BackgroundTransparency = 1
+					GloveEspText.Size = UDim2.new(0, 100, 0, 100)
+					GloveEspText.TextSize = 20
+					GloveEspText.Font = Enum.Font.SourceSansSemibold
+					GloveEspText.TextColor3 = Color3.new(1, 1, 1)
+					GloveEspText.TextStrokeTransparency = 0
+					GloveEspText.TextYAlignment = Enum.TextYAlignment.Center
+					if v.Character.IsInDefaultArena.Value == false then
+						GloveEspText.Text = "Glove: " .. v.leaderstats.Glove.Value
+					else
+						GloveEspText.Text = "Glove: Default"
+					end
+				end
+			end
+			wait()
+		end
+	end
+}
+
+Combat:Toggle{
+	Name = "Admin Spam",
+	StartingState = false,
+	Description = "Spams Admin's abilities, which work on every glove.",
+	Callback = function(Value) 
+		getgenv().adminSpam = Value
+		while getgenv().adminSpam do
+			game.ReplicatedStorage.AdminAbility:FireServer(adminAbility)
+			wait()
+		end
+	end
+}
+
+Combat:Dropdown{
+	Name = "Admin Ability",
+	StartingText = "Choose ability...",
+	Description = "Selects which Admin ability to spam.",
+	Items = {
+		"Anvil",
+		"Fling",
+		"Invisibility"
+	},
+	Callback = function(Value)
+		adminAbility = Value
+	end
+}
+
+Combat:Toggle{
+	Name = "Retro Spam",
+	StartingState = false,
+	Description = "Spams Retro's abilities, which work on every glove.",
+	Callback = function(Value) 
+		getgenv().retroSpam = Value
+		while getgenv().retroSpam do
+			game.ReplicatedStorage.RetroAbility:FireServer(retroAbility)
+			wait()
+		end
+	end
+}
+
+Combat:Dropdown{
+	Name = "Retro Ability",
+	StartingText = "Choose ability...",
+	Description = "Selects which Retro ability to spam.",
+	Items = {
+		"Ban Hammer",
+		"Rocket Launcher",
+		"Bomb"
+	},
+	Callback = function(Value)
+		retroAbility = Value
+	end
+}
+
+Combat:Toggle{
+	Name = "Slapstick Spam",
+	StartingState = false,
+	Description = "Spams Slapstick's ability, which works on every glove.",
+	Callback = function(Value) 
+		getgenv().slapstickSpam = Value
+		while getgenv().slapstickSpam do
+			game.ReplicatedStorage.slapstick:FireServer("dash")
+			task.wait()
+		end
+	end
+}
+
+Protection:Toggle{
+	Name = "Anti Void",
+	StartingState = false,
+	Description = "Stops you from falling into the void.",
+	Callback = function(Value) 
+		getgenv().antiVoid = Value
+		workspace.AntiVoid.CanCollide = getgenv().antiVoid
+		workspace.TAntiVoid.CanCollide = getgenv().antiVoid
+		if getgenv().antiVoid == true then
+			workspace.AntiVoid.Transparency = 0.75
+			workspace.TAntiVoid.Transparency = 0.75
+		else
+			workspace.AntiVoid.Transparency = 1
+			workspace.TAntiVoid.Transparency = 1
+		end
+	end
+}
+
+Protection:Toggle{
+	Name = "Anti Ragdoll",
+	StartingState = false,
+	Description = "Stops you from being ragdolled.",
+	Callback = function(Value) 
+		getgenv().antiRagdoll = Value
+		while getgenv().antiRagdoll do
+			if User.Character:FindFirstChild("Ragdolled") and User.Character.Ragdolled.Value == true then
+				User.Character.Torso.Anchored = true
+				repeat wait() until User.Character.Ragdolled.Value == false
+				User.Character.Torso.Anchored = false
+			end
+			wait()
+		end
+	end
+}
+
+Protection:Toggle{
+	Name = "Anti Cube of Death",
+	StartingState = false,
+	Description = "Stops the Cube of Death from killing you.",
+	Callback = function(Value) 
+		workspace.Arena.CubeOfDeathArea["the cube of death(i heard it kills)"].CanTouch = not Value
+	end
+}
+
+Protection:Toggle{
+	Name = "Anti Death Barriers",
+	StartingState = false,
+	Description = "Disables kill bricks preventing you from leaving boundries of the map.",
+	Callback = function(Value) 
+		workspace.AntiDefaultArena.CanTouch = not Value
+		workspace.ArenaBarrier.CanTouch = not Value
+		workspace.DEATHBARRIER.CanTouch = not Value
+		workspace.DEATHBARRIER2.CanTouch = not Value
+		for i,v in pairs(workspace.DEATHBARRIER:GetChildren()) do
+			if v.Name == "BLOCK" then
+				v.CanTouch = not Value
+			end
+		end
+	end
+}
+
+Protection:Toggle{
+	Name = "Anti Admin",
+	StartingState = false,
+	Description = "Stops Admin's ability from affecting you.",
+	Callback = function(Value) 
+		getgenv().antiAdmin = Value
+		while getgenv().antiAdmin do
+			for i,v in pairs(workspace:GetChildren()) do
+				if v.Name == "jail" then
+					for i,j in pairs(v:GetChildren()) do
+						j.CanCollide = false
+					end
+				end
+			end
+			wait()
+		end
+	end
+}
+
+Protection:Toggle{
+	Name = "Anti Booster",
+	StartingState = false,
+	Description = "Stops Booster's ability from affecting you.",
+	Callback = function(Value) 
+		getgenv().antiBooster = Value
+		while getgenv().antiBooster do
+			for i,v in pairs(User.Character:GetDescendants()) do
+				if v.Name == "BoosterObject" then
+					v:Destroy()
+				end
+			end
+			wait()
+		end
+	end
+}
+
+Protection:Toggle{
+	Name = "Anti Brick",
+	StartingState = false,
+	Description = "Stops Brick's ability from affecting you.",
+	Callback = function(Value) 
+		getgenv().antiBrick = Value
+		while getgenv().antiBrick do
+			for i,v in pairs(workspace:GetChildren()) do
+				if v.Name == "Union" then
+					v.CanTouch = false
+				end
+			end
+			wait()
+		end
+	end
+}
+
+Protection:Toggle{
+	Name = "Anti Conveyor",
+	StartingState = false,
+	Description = "Stops Conveyor's ability from affecting you.",
+	Callback = function(Value) 
+		User.PlayerScripts.LegacyClient.ConveyorVictimized.Disabled = Value
+	end
+}
+
+Protection:Toggle{
+	Name = "Anti Defense",
+	StartingState = false,
+	Description = "Stops Defense's ability from affecting you.",
+	Callback = function(Value) 
+		getgenv().antiDefense = Value
+		while getgenv().antiDefense do
+			for i,v in pairs(workspace:GetChildren()) do
+				if v.Name:find("\195\133Barrier") then
+					v.CanCollide = false
+				end
+			end
+			wait()
+		end
+	end
+}
+
+Protection:Toggle{
+	Name = "Anti Hallow Jack",
+	StartingState = false,
+	Description = "Stops Hallow Jack's ability from affecting you.",
+	Callback = function(Value) 
+		User.PlayerScripts.LegacyClient.HallowJackAbilities.Disabled = Value
+	end
+}
+
+Protection:Toggle{
+	Name = "Anti Ice",
+	StartingState = false,
+	Description = "Stops Ice's ability from affecting you.",
+	Callback = function(Value) 
+		getgenv().antiIce = Value
+		while getgenv().antiIce do
+			for i,v in pairs(User.Character:GetChildren()) do
+				if v.Name == "Icecube" then
+					v:Destroy()
+					User.Character.Humanoid.PlatformStand = false
+					User.Character.Humanoid.AutoRotate = true
+				end
+			end
+			wait()
+		end
+	end
+}
+
+Protection:Toggle{
+	Name = "Anti Iceskate",
+	StartingState = false,
+	Description = "Stops Iceskate's ability from affecting you.",
+	Callback = function(Value) 
+		getgenv().antiIceskate = Value
+		while getgenv().antiIceskate do
+			if User.Character:FindFirstChild("IceSkateEffect") then
+				User.Character.IceSkateEffect.Disabled = true
+			end
+			wait()
+		end
+		if User.Character:FindFirstChild("IceSkateEffect") then
+			User.Character.IceSkateEffect.Disabled = false
+		end
+	end
+}
+
+Protection:Toggle{
+	Name = "Anti Lamp",
+	StartingState = false,
+	Description = "Stops Lamp's ability from affecting you.",
+	Callback = function(Value) 
+		getgenv().antiLamp = Value
+		while getgenv().antiLamp do
+			for i,v in pairs(game.Lighting:GetChildren()) do
+				if v.Name:find("lampcci") then
+					v.Enabled = false
+				end
+			end
+			for i,v in pairs(User.PlayerGui:GetChildren()) do
+				if v.Name:find("whiteframe") then
+					v.Enabled = false
+				end
+			end
+			task.wait()
+		end
+		for i,v in pairs(User.PlayerGui:GetChildren()) do
+			if v.Name:find("whiteframe") then
+				v.Enabled = true
+			end
+		end
+	end
+}
+
+Protection:Toggle{
+	Name = "Anti Mail",
+	StartingState = false,
+	Description = "Stops Mail's ability from affecting you.",
+	Callback = function(Value) 
+		getgenv().antiMail = Value
+		while getgenv().antiMail do
+			if User.Character:FindFirstChild("YouHaveGotMail") then
+				User.Character.YouHaveGotMail.Disabled = true
+			end
+			wait()
+		end
+		if User.Character:FindFirstChild("YouHaveGotMail") then
+			User.Character.YouHaveGotMail.Disabled = false
+		end
+	end
+}
+
+Protection:Toggle{
+	Name = "Anti MEGAROCK & CUSTOM",
+	StartingState = false,
+	Description = "Stops MEGAROCK and CUSTOM's abilities from affecting you.",
+	Callback = function(Value) 
+		getgenv().antiMegarock = Value
+		while getgenv().antiMegarock do
+			for i,v in pairs(game.Players:GetChildren()) do
+				if v.Character and v.Character:FindFirstChild("rock") then
+					v.Character.rock.CanTouch = false
+				end
+			end
+			wait()
+		end
+		for i,v in pairs(game.Players:GetChildren()) do
+			if v.Character and v.Character:FindFirstChild("rock") then
+				v.Character.rock.CanTouch = true
+			end
+		end
+	end
+}
+
+Protection:Toggle{
+	Name = "Anti Pusher",
+	StartingState = false,
+	Description = "Stops Pusher's ability from affecting you.",
+	Callback = function(Value) 
+		getgenv().antiPusher = Value
+		while getgenv().antiPusher do
+			for i,v in pairs(workspace:GetChildren()) do
+				if v.Name == "wall" then
+					v.CanCollide = false
+				end
+			end
+			wait()
+		end
+	end
+}
+
+Protection:Toggle{
+	Name = "Anti [REDACTED]",
+	StartingState = false,
+	Description = "Stops [REDACTED]'s ability from affecting you.",
+	Callback = function(Value) 
+		User.PlayerScripts.LegacyClient.Well.Disabled = Value
+	end
+}
+
+Protection:Toggle{
+	Name = "Anti Squid",
+	StartingState = false,
+	Description = "Stops Squid's ability from affecting you.",
+	Callback = function(Value) 
+		getgenv().antiSquid = Value
+		while getgenv().antiSquid do
+			if User.PlayerGui:FindFirstChild("SquidInk") then
+        			User.PlayerGui.SquidInk.Enabled = false
+			end
+			wait()
+		end
+		if User.PlayerGui:FindFirstChild("SquidInk") then
+			User.PlayerGui.SquidInk.Enabled = true
+		end
+	end
+}
+
+Protection:Toggle{
+	Name = "Anti Stun",
+	StartingState = false,
+	Description = "Stops Stun's ability from affecting you.",
+	Callback = function(Value) 
+		getgenv().antiStun = Value
+		while getgenv().antiStun do
+			if User.Character:FindFirstChild("Humanoid") and User.Character.Ragdolled.Value == false and User.Character.Humanoid.PlatformStand == true then
+				User.Character.Humanoid.PlatformStand = false
+			end
+			wait()
+		end
+	end
+}
+
+Badges:Button{
+	Name = "Complete A Hunt for the Hunter Quest",
+	Description = 'Completes the "A Hunt for the Hunter" quest.',
+	Callback = function() 
+		if workspace.Arena.CannonIsland.TreasureSpots._treasureSpot11.Decal.Transparency == 0 then
+			User.Character.HumanoidRootPart.CFrame = CFrame.new(289, 13, 261)
+			repeat wait()
+			game.ReplicatedStorage.DigEvent:FireServer({["index"] = 2, ["cf"] = CFrame.new()})
+			until workspace:FindFirstChild("TreasureChestFolder") and workspace.TreasureChestFolder:FindFirstChild("TreasureChest")
+			game.Workspace.TreasureChestFolder.TreasureChest.OpenRemote:FireServer()
+			User.Character.HumanoidRootPart.CFrame = CFrame.new(17895, -130, -3522)
+		else
+			GUI:Notification{
+			Title = "Error",
+			Text = "You must start the quest.",
+			Duration = 3,
+			Callback = function() end
+			}
+		end
+	end
+}
+
+Badges:Button{
+	Name = "Defeat Guide",
+	Description = "Lets you get every Guide-related badge, this will take seven minutes." ,
+	Callback = function() 
+		GUI:Prompt{
+		Followup = false,
+		Title = "Defeat Guide",
+		Text = "This will make you leave the game temporarily.",
+		Buttons = {
+		Yes = function()
+			local teleportFunc = queueonteleport or queue_on_teleport
+				if teleportFunc then
+					teleportFunc([[
+						if not game:IsLoaded() then
+							game.Loaded:Wait()
+						end
+						repeat wait() until game.Players.LocalPlayer
+						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(3260, -70, 823)
+						fireclickdetector(workspace:WaitForChild("ShackLever").ClickDetector)
+						game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Defeating Guide...",Text = "This will take seven minutes.",Icon = "rbxassetid://4625542830",Duration = 410})
+						workspace.Map.Components:WaitForChild("GuideNPC")
+						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(595, 117, -165)
+						wait(0.5)
+						game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+						while task.wait() do
+							if game.Players.LocalPlayer.Backpack:FindFirstChild("Lantern") then
+								game.Players.LocalPlayer.Character.Humanoid:EquipTool(game.Players.LocalPlayer.Backpack.Lantern)
+							end
+							for i,v in pairs(workspace:GetChildren()) do
+    								if v.Name == "TrackGloveMissile" then
+									game.Players.LocalPlayer.Character.Lantern:Activate()
+									game.Players.LocalPlayer.Character.Lantern.Network:FireServer("Hit", v)
+								elseif v.Name == "GuideNPC" and v:FindFirstChild("HumanoidRootPart") then
+									game.Players.LocalPlayer.Character.Lantern:Activate()
+									game.Players.LocalPlayer.Character.Lantern.Network:FireServer("Hit", v.HumanoidRootPart)	
+								end 
+							end
+						end
+					]])
+				end
+			game:GetService("TeleportService"):Teleport(18550498098)
+		end,
+		No = function()
+			return
+		end
+		}
+		}
+	end
+}
+
+Badges:Button{
+	Name = "Get Admin",
+	Description = 'Gives you the "CERTIFIED ADMIN" badge, this takes an hour.' ,
+	Callback = function() 
+		GUI:Prompt{
+		Followup = false,
+		Title = "Get Admin",
+		Text = "This will make you leave the game temporarily.",
+		Buttons = {
+		Yes = function()
+			local teleportFunc = queueonteleport or queue_on_teleport
+				if teleportFunc then
+					teleportFunc([[
+						if not game:IsLoaded() then
+							game.Loaded:Wait()
+						end
+						repeat wait() until game.Players.LocalPlayer
+						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(500, 81, 61)
+						game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Getting Admin...",Text = "This will take one hour.",Icon = "rbxassetid://4625542830",Duration = 3600})
+						game.Players.LocalPlayer.Idled:Connect(function()
+							game:GetService("VirtualUser"):CaptureController()
+							game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+						end)
+					]])
+				end
+			for i,v in pairs(game.ReplicatedStorage.Assets.Retro.Map.RetroObbyMap:GetChildren()) do
+				if v:FindFirstChild("StaffApp") then
+					while task.wait() do
+						User.Character.HumanoidRootPart.CFrame = v.StaffApp.Button.CFrame
+						fireclickdetector(v.StaffApp.Button:WaitForChild("ClickDetector"))
+					end
+    				end
+			end
+		end,
+		No = function()
+			return
+		end
+		}
+		}
+	end
+}
+
+Badges:Button{
+	Name = "Get Bind",
+	Description = 'Gives you the "Garden of Erasure" badge.' ,
+	Callback = function() 
+		GUI:Prompt{
+		Followup = false,
+		Title = "Get Bind",
+		Text = "This will make you leave the game temporarily.",
+		Buttons = {
+		Yes = function()
+			local teleportFunc = queueonteleport or queue_on_teleport
+			if teleportFunc then
+    				teleportFunc([[
+        				if not game:IsLoaded() then
+            					game.Loaded:Wait()
+        				end
+					repeat wait() until game.Players.LocalPlayer
+					wait(0.5)
+					fireclickdetector(workspace:WaitForChild("Orb").ClickDetector)
+    				]])
+			end
+			game:GetService("TeleportService"):Teleport(74169485398268)
+		end,
+		No = function()
+			return
+		end
+		}
+		}
+	end
+}
+
+Badges:Button{
+	Name = "Get Boxer",
+	Description = 'Gives you the "The Glove" badge.' ,
+	Callback = function() 
+		GUI:Prompt{
+		Followup = false,
+		Title = "Get Boxer",
+		Text = "This will make you leave the game temporarily.",
+		Buttons = {
+		Yes = function()
+			local teleportFunc = queueonteleport or queue_on_teleport
+			if teleportFunc then
+    				teleportFunc([[
+        				if not game:IsLoaded() then
+            					game.Loaded:Wait()
+        				end
+					repeat wait() until game.Players.LocalPlayer
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(4174, 3498, 250)
+					fireclickdetector(workspace:WaitForChild("BoxingGloves").ClickDetector)
+					game:GetService("TeleportService"):Teleport(6403373529)
+    				]])
+			end
+			game:GetService("TeleportService"):Teleport(7234087065)
+		end,
+		No = function()
+			return
+		end
+		}
+		}
+	end
+}
+
+Badges:Button{
+	Name = "Get Chain",
+	Description = 'Gives you the "THE ACCIDENT" badge.' ,
+	Callback = function() 
+		if User.leaderstats.Slaps.Value >= 1000 then
+			GUI:Prompt{
+			Followup = false,
+			Title = "Get Chain",
+			Text = "This will make you leave the game temporarily.",
+			Buttons = {
+			Yes = function()
+				local teleportFunc = queueonteleport or queue_on_teleport
+				if teleportFunc then
+					teleportFunc([[
+						if not game:IsLoaded() then
+							game.Loaded:Wait()
+						end
+						repeat wait() until game.Players.LocalPlayer
+						code = {}
+						for i,v in pairs(workspace.Map:WaitForChild("CodeBrick").SurfaceGui:GetChildren()) do
+							if v.Name == "IMGTemplate" then
+        							if v.Image == "http://www.roblox.com/asset/?id=9648769161" then
+            								table.insert(code, "4")
+        							elseif v.Image == "http://www.roblox.com/asset/?id=9648765536" then
+            								table.insert(code, "2")
+        							elseif v.Image == "http://www.roblox.com/asset/?id=9648762863" then
+            								table.insert(code, "3")
+        							elseif v.Image == "http://www.roblox.com/asset/?id=9648759883" then
+            								table.insert(code, "9")
+        							elseif v.Image == "http://www.roblox.com/asset/?id=9648755440" then
+            								table.insert(code, "8")
+        							elseif v.Image == "http://www.roblox.com/asset/?id=9648752438" then
+            								table.insert(code, "2")
+        							elseif v.Image == "http://www.roblox.com/asset/?id=9648749145" then
+            								table.insert(code, "8")
+        							elseif v.Image == "http://www.roblox.com/asset/?id=9648745618" then
+            								table.insert(code, "3")
+        							elseif v.Image == "http://www.roblox.com/asset/?id=9648742013" then
+									table.insert(code, "7")
+        							elseif v.Image == "http://www.roblox.com/asset/?id=9648738553" then
+            								table.insert(code, "8")
+        							elseif v.Image == "http://www.roblox.com/asset/?id=9648734698" then
+            								table.insert(code, "2")
+        							elseif v.Image == "http://www.roblox.com/asset/?id=9648730082" then
+            								table.insert(code, "6")
+        							elseif v.Image == "http://www.roblox.com/asset/?id=9648723237" then
+            								table.insert(code, "3")
+        							elseif v.Image == "http://www.roblox.com/asset/?id=9648718450" then
+            								table.insert(code, "6")
+        							elseif v.Image == "http://www.roblox.com/asset/?id=9648715920" then
+            								table.insert(code, "6")
+       								elseif v.Image == "http://www.roblox.com/asset/?id=9648712563" then
+            								table.insert(code, "2")
+        							end
+    							end
+						end
+						fireclickdetector(workspace.Map.OriginOffice.Door.Keypad.Buttons.Reset.ClickDetector)
+						for i = 1, 4 do
+							Button = code[i]
+							fireclickdetector(workspace.Map.OriginOffice.Door.Keypad.Buttons[Button].ClickDetector)
+							wait(0.3)
+						end
+						fireclickdetector(workspace.Map.OriginOffice.Door.Keypad.Buttons.Enter.ClickDetector)
+						game:GetService("TeleportService"):Teleport(6403373529)
+					]])
+				end
+				game:GetService("TeleportService"):Teleport(9431156611)
+			end,
+			No = function()
+				return
+			end
+			}
+			}
+		else
+			GUI:Notification{
+			Title = "Error",
+			Text = "You must have at least 1,000 slaps.",
+			Duration = 3,
+			Callback = function() end
+			}
+		end
+	end
+}
+
+Badges:Button{
+	Name = "Get Clock (buggy)",
+	Description = 'Gives you the "Shattered Memories" badge.' ,
+	Callback = function() 
+		GUI:Prompt{
+		Followup = false,
+		Title = "Get Clock",
+		Text = "This will make you leave the game temporarily.",
+		Buttons = {
+		Yes = function()
+			local teleportFunc = queueonteleport or queue_on_teleport
+			if teleportFunc then
+    				teleportFunc([[
+					if not game:IsLoaded() then
+						game.Loaded:Wait()
+					end
+					repeat wait() until game.Players.LocalPlayer
+					game:GetService("RunService").RenderStepped:Connect(function()
+						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(250,150,-458)
+					end)
+					loadstring(game:HttpGet("https://raw.githubusercontent.com/Guy-that-exists/Hub-that-exists/main/Slap%20Battles/Get%20Clock"))()
+				]])
+			end
+			game:GetService("TeleportService"):Teleport(7234087065)
+		end,
+		No = function()
+			return
+		end
+		}
+		}
+	end
+}
+
+Badges:Button{
+	Name = "Get Counter",
+	Description = 'Gives you the "Da Maze Runner" badge, this takes two minutes.' ,
+	Callback = function() 
+		GUI:Prompt{
+		Followup = false,
+		Title = "Get Counter",
+		Text = "This will make you leave the game temporarily.",
+		Buttons = {
+		Yes = function()
+			local teleportFunc = queueonteleport or queue_on_teleport
+			if teleportFunc then
+				teleportFunc([[
+					if not game:IsLoaded() then
+						game.Loaded:Wait()
+					end
+					repeat wait() until game.Players.LocalPlayer
+					game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Getting Counter...",Text = "This will take two minutes.",Icon = "rbxassetid://4625542830",Duration = 120})
+					fireclickdetector(workspace.CounterLever.ClickDetector)
+					workspace:WaitForChild("Pim"):Destroy()
+					repeat task.wait() until workspace.Maze:FindFirstChildOfClass("MeshPart")
+					fireclickdetector(workspace.Maze:FindFirstChildOfClass("MeshPart").ClickDetector)
+				]])
+			end
+			game:GetService("TeleportService"):Teleport(11828384869)
+		end,
+		No = function()
+			return
+		end
+		}
+		}
+	end
+}
+
+Badges:Button{
+	Name = "Get Elude",
+	Description = 'Gives you the "EXPOSED" badge.' ,
+	Callback = function() 
+		GUI:Prompt{
+		Followup = false,
+		Title = "Get Elude",
+		Text = "This will make you leave the game temporarily.",
+		Buttons = {
+		Yes = function()
+			local teleportFunc = queueonteleport or queue_on_teleport
+			if teleportFunc then
+				teleportFunc([[
+					if not game:IsLoaded() then
+						game.Loaded:Wait()
+					end
+					repeat wait() until game.Players.LocalPlayer
+					game:GetService("RunService").RenderStepped:Connect(function()
+						game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-502, 13, -180)
+					end)
+				]])
+			end
+			game:GetService("TeleportService"):Teleport(11828384869)
+		end,
+		No = function()
+			return
+		end
+		}
+		}
+	end
+}
+
+Badges:Button{
+	Name = "Get Frostbite",
+	Description = 'Gives you the "Ice Essence" badge.' ,
+	Callback = function() 
+		GUI:Prompt{
+		Followup = false,
+		Title = "Get Frostbite",
+		Text = "This will make you leave the game temporarily.",
+		Buttons = {
+		Yes = function()
+			local teleportFunc = queueonteleport or queue_on_teleport
+			if teleportFunc then
+				teleportFunc([[
+					if not game:IsLoaded() then
+						game.Loaded:Wait()
+					end
+					repeat wait() until game.Players.LocalPlayer
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-557, 180, 54)
+					wait(0.1)
+					fireproximityprompt(workspace.FinishDoor_Ice.Model.Part.ProximityPrompt)
+				]])
+			end
+			game:GetService("TeleportService"):Teleport(11828384869)
+		end,
+		No = function()
+			return
+		end
+		}
+		}
+	end
+}
+
+Badges:Button{
+	Name = "Get Hybrid",
+	Description = 'Gives you the "Prolonged Anger" badge.' ,
+	Callback = function() 
+		game.ReplicatedStorage.GRRRRR:FireServer(true)
+	end
+}
+
+Badges:Button{
+	Name = "Get Iceskate",
+	Description = 'Gives you the "Slap Battles: On Ice" badge. (Blatant)' ,
+	Callback = function()
+		game.ReplicatedStorage.IceSkate:FireServer("Freeze")
+	end
+}
+
+Badges:Toggle{
+	Name = "Jet Farm",
+	StartingState = false,
+	Description = 'Takes flight orbs whenever they spawn, giving the "Orb of flight" badge.',
+	Callback = function(Value) 
+		getgenv().jetFarm = Value
+		while getgenv().jetFarm do
+			for i,v in pairs(workspace:GetChildren()) do
+                    		if v.Name == "JetOrb" then
+					firetouchinterest(User.Character:WaitForChild("HumanoidRootPart"), v, 0)
+					firetouchinterest(User.Character:WaitForChild("HumanoidRootPart"), v, 1)
+				end
+			end
+			wait()
+		end
+	end
+}
+
+Badges:Button{
+	Name = "Get Kinetic (remember to fix)",
+	Description = 'Gives you the "Kinetically Charged" badge. (Inconsistent)',
+	Callback = function() 
+		if User.leaderstats.Slaps.Value < 870 then
+			GUI:Notification{
+			Title = "Error",
+			Text = "You must have at least 870 slaps.",
+			Duration = 3,
+			Callback = function() end
+			}
+		elseif User.Character:FindFirstChild("entered") and User.leaderstats.Glove.Value ~= "Stun" then
+			GUI:Notification{
+			Title = "Error",
+			Text = "You must be in the lobby.",
+			Duration = 3,
+			Callback = function() end
+			}
+		else
+			GUI:Prompt{
+			Followup = false,
+			Title = "Get Kinetic",
+			Text = "This will interrupt whatever you are doing. It is recommended to become invisible before use.",
+			Buttons = {
+			Yes = function()
+				if not User.Character:FindFirstChild("entered") then
+					fireclickdetector(workspace.Lobby.Stun.ClickDetector)
+					firetouchinterest(User.Character:WaitForChild("HumanoidRootPart"), workspace.Lobby.Teleport1, 0)
+					firetouchinterest(User.Character:WaitForChild("HumanoidRootPart"), workspace.Lobby.Teleport1, 1)
+				end
+				wait(0.1)
+				User.Character.HumanoidRootPart.CFrame = workspace.SafeSpot.CFrame * CFrame.new(0, 19, 0) 
+				wait(0.5)
+				repeat task.wait()
+				game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = -99})
+				until User.Character:WaitForChild("KineticSlappedBadgeCounter").Value >= 100
+				wait(0.5)
+				repeat
+				for i,v in pairs(game.Players:GetChildren()) do
+				if v ~= User and User.Character:FindFirstChild("HumanoidRootPart") and v.Character then
+					if v.Character:FindFirstChild("HumanoidRootPart") and v.Character.isInArena.Value == true and not v.Character:FindFirstChild("Reversed") and not v.Character:FindFirstChild("rock") and not v.Character:FindFirstChild("Counterd") and not v.Character:FindFirstChild("Mirage") and not usingParry(v) and v.Character.Ragdolled.Value == false then
+						User.Character.HumanoidRootPart.CFrame = workspace.Arena.Plate.CFrame * CFrame.new(0, 2, 0)
+						wait(0.3)
+						User.Character.HumanoidRootPart.CFrame = v.Character.HumanoidRootPart.CFrame * CFrame.new(0,-12,0)
+						if User.Backpack:FindFirstChild("Stun") then
+							User.Character.Humanoid:EquipTool(User.Backpack.Stun)
+						end
+						wait(0.2)
+						game.ReplicatedStorage.StunR:FireServer(User.Character.Stun)
+						User.Character.HumanoidRootPart.CFrame = workspace.SafeSpot.CFrame * CFrame.new(0, 19, 0)
+						break
+					end
+				end
+			end
+			wait(9.7)
+			until User.Character:WaitForChild("EMPStunBadgeCounter").Value >= 50
+			end,
+			No = function()
+				return
+			end
+			}
+			}
+		end
+	end
+}
+
+Badges:Button{
+	Name = "Get Lamp",
+	Description = 'Gives you the "Friend of the Dark" badge.' ,
+	Callback = function() 
+		if User.leaderstats.Slaps.Value < 70 then
+			GUI:Notification{
+			Title = "Error",
+			Text = "You must have at least 70 slaps.",
+			Duration = 3,
+			Callback = function() end
+			}
+		elseif User.Character:FindFirstChild("entered") and User.leaderstats.Glove.Value ~= "ZZZZZZZ" then
+			GUI:Notification{
+			Title = "Error",
+			Text = "You must be in the lobby.",
+			Duration = 3,
+			Callback = function() end
+			}
+		else
+			ogGlove = User.leaderstats.Glove.Value
+			if not User.Character:FindFirstChild("entered") and User.leaderstats.Glove.Value ~= "ZZZZZZZ" then
+				fireclickdetector(workspace.Lobby.ZZZZZZZ.ClickDetector)
+			end
+			for i = 1,5 do
+				wait()
+				game.ReplicatedStorage.nightmare:FireServer("LightBroken")
+			end
+			if not User.Character:FindFirstChild("entered") then
+				fireclickdetector(workspace.Lobby[ogGlove].ClickDetector)
+			end
+		end
+	end
+}
+
+Badges:Toggle{
+	Name = "MATERIALIZE Farm",
+	StartingState = false,
+	Description = 'Takes honored orbs whenever they spawn, giving the "Orb of Honor" badge.',
+	Callback = function(Value) 
+		getgenv().materializeFarm = Value
+		while getgenv().materializeFarm do
+			for i,v in pairs(workspace:GetChildren()) do
+                    		if v.Name == "MATERIALIZEOrb" then
+					firetouchinterest(User.Character:WaitForChild("HumanoidRootPart"), v, 0)
+					firetouchinterest(User.Character:WaitForChild("HumanoidRootPart"), v, 1)
+				end
+			end
+			wait()
+		end
+	end
+}
+
+Badges:Toggle{
+	Name = "Phase Farm",
+	StartingState = false,
+	Description = 'Takes Phase orbs whenever they spawn, giving the "Unphased" badge.',
+	Callback = function(Value) 
+		getgenv().phaseFarm = Value
+		while getgenv().phaseFarm do
+			for i,v in pairs(workspace:GetChildren()) do
+                    		if v.Name == "PhaseOrb" then
+					firetouchinterest(User.Character:WaitForChild("HumanoidRootPart"), v, 0)
+					firetouchinterest(User.Character:WaitForChild("HumanoidRootPart"), v, 1)
+				end
+			end
+			wait()
+		end
+	end
+}
+
+Badges:Button{
+	Name = "Get Plank",
+	Description = 'Gives you the "Cranking 90\’s" badge.' ,
+	Callback = function() 
+		if User.leaderstats.Slaps.Value < 1075 then
+			GUI:Notification{
+			Title = "Error",
+			Text = "You must have at least 1,075 slaps.",
+			Duration = 3,
+			Callback = function() end
+			}
+		elseif User.Character:FindFirstChild("entered") and User.leaderstats.Glove.Value ~= "Fort" then
+			GUI:Notification{
+			Title = "Error",
+			Text = "You must be in the lobby.",
+			Duration = 3,
+			Callback = function() end
+			}
+		else
+			ogGlove = User.leaderstats.Glove.Value
+			if not User.Character:FindFirstChild("entered") and User.leaderstats.Glove.Value ~= "Fort" then
+				fireclickdetector(workspace.Lobby.Fort.ClickDetector)
+			end
+			ogLocation = User.Character.HumanoidRootPart.CFrame
+			User.Character.HumanoidRootPart.CFrame = workspace.SafeSpot.CFrame * CFrame.new(0, 19, 0) 
+			wait(0.25)
+			game.ReplicatedStorage.Fortlol:FireServer()
+			wait(0.25)
+			for i,v in pairs(workspace:GetChildren()) do
+                    		if v.Name == "Part" and v:FindFirstChild("brownsmoke") and v:FindFirstChild("Sound") and v.Sound.SoundId == "rbxassetid://428545949" then
+					User.Character.HumanoidRootPart.CFrame = v.CFrame
+				end
+			end
+			wait(0.1)
+			User.Character.HumanoidRootPart.CFrame = ogLocation
+			if not User.Character:FindFirstChild("entered") then
+				fireclickdetector(workspace.Lobby[ogGlove].ClickDetector)
+			end
+		end
+	end
+}
+
+Badges:Button{
+	Name = "Get [REDACTED]",
+	Description = 'Gives you the "Evaded" badge.' ,
+	Callback = function() 
+		if User.leaderstats.Slaps.Value >= 5000 then
+			GUI:Prompt{
+			Followup = false,
+			Title = "Get [REDACTED]",
+			Text = "This will reset your character.",
+			Buttons = {
+			Yes = function()
+				for i,v in pairs(workspace.PocketDimension.Doors:GetChildren()) do
+					ogLocation = User.Character.HumanoidRootPart.CFrame
+					ogDoorLocation = v.CFrame
+					v.CFrame = User.Character.HumanoidRootPart.CFrame
+					wait(0.5)
+					v.CFrame = ogDoorLocation
+					if User.Character.Humanoid.Health ~= 0 then
+						User.Character.HumanoidRootPart.CFrame = ogLocation
+						break
+					end
+					wait(3.3)
+				end
+			end,
+			No = function()
+				return
+			end
+			}
+			}
+		else
+			GUI:Notification{
+			Title = "Error",
+			Text = "You must have at least 5,000 slaps.",
+			Duration = 3,
+			Callback = function() end
+			}
+		end
+	end
+}
+
+Badges:Toggle{
+	Name = "Siphon Farm",
+	StartingState = false,
+	Description = 'Takes Siphon orbs whenever they spawn, giving the "Caution: High Voltage" badge.',
+	Callback = function(Value) 
+		getgenv().siphonFarm = Value
+		while getgenv().siphonFarm do
+			for i,v in pairs(workspace:GetChildren()) do
+                    		if v.Name == "SiphonOrb" then
+					firetouchinterest(User.Character:WaitForChild("HumanoidRootPart"), v, 0)
+					firetouchinterest(User.Character:WaitForChild("HumanoidRootPart"), v, 1)
+				end
+			end
+			wait()
+		end
+	end
+}
+
+Badges:Button{
+	Name = "Get Untitled Tag Glove",
+	Description = 'Gives you the "Hurt me plenty" badge.' ,
+	Callback = function() 
+		GUI:Prompt{
+		Followup = false,
+		Title = "Get Untitled Tag Glove",
+		Text = "This will make you leave the game temporarily.",
+		Buttons = {
+		Yes = function()
+			local teleportFunc = queueonteleport or queue_on_teleport
+				if teleportFunc then
+					teleportFunc([[
+						if not game:IsLoaded() then
+							game.Loaded:Wait()
+						end
+						repeat wait() until game.Players.LocalPlayer
+						game.Players:Chat("I'M A LOSER")
+						fireclickdetector(workspace.Sign.Part1.ClickDetector)
+					]])
+				end
+			game:GetService("TeleportService"):Teleport(115782629143468)
+		end,
+		No = function()
+			return
+		end
+		}
+		}
+	end
+}
+
+Badges:Button{
+	Name = "Get barzil badge",
+	Description = 'Gives you the "barzil" badge.' ,
+	Callback = function() 
+		GUI:Prompt{
+		Followup = false,
+		Title = "Get barzil badge",
+		Text = "This will make you leave the game temporarily.",
+		Buttons = {
+		Yes = function()
+			local teleportFunc = queueonteleport or queue_on_teleport
+				if teleportFunc then
+					teleportFunc([[
+						if not game:IsLoaded() then
+							game.Loaded:Wait()
+						end
+						repeat wait() until game.Players.LocalPlayer
+						game:GetService("TeleportService"):Teleport(6403373529)
+					]])
+				end
+			User.Character.HumanoidRootPart.CFrame = CFrame.new(-824, 307, -2)
+		end,
+		No = function()
+			return
+		end
+		}
+		}
+	end
+}
+
+Badges:Button{
+	Name = "Get court evidence badge",
+	Description = 'Gives you the "court evidence" badge.' ,
+	Callback = function() 
+		fireclickdetector(workspace.Lobby.Scene.knofe.ClickDetector)
+	end
+}
+
+Badges:Button{
+	Name = "Get duck badge",
+	Description = 'Gives you the "duck" badge.' ,
+	Callback = function() 
+		fireclickdetector(workspace.Arena["default island"]["Rubber Ducky"].ClickDetector)
+	end
+}
+
+Badges:Button{
+	Name = "Get The Lone Orange badge",
+	Description = 'Gives you the "The Lone Orange" badge.' ,
+	Callback = function() 
+		fireclickdetector(workspace.Arena.island5.Orange.ClickDetector)
+	end
+}
+
+Gloves:Toggle{
+	Name = "Slap Farm",
+	StartingState = false,
+	Description = "Gives you around 1,000 slaps per minute, this requires the Boxer glove.",
+	Callback = function(Value) 
+		getgenv().slapFarm = Value
+		if User.leaderstats.Glove.Value == "Boxer" then
+			while getgenv().slapFarm do
+				game.ReplicatedStorage.Events.Boxing:FireServer(game.Players.LocalPlayer, false)
+				task.wait()
+			end
+		elseif Value == true then
+			GUI:Notification{
+			Title = "Error",
+			Text = "You must have the Boxer glove equipped.",
+			Duration = 3,
+			Callback = function() end
+			}
+		end
+	end
+}
+
+Gloves:Button{
+	Name = "Invisibility",
+	Description = "Makes you invisible until you die." ,
+	Callback = function()
+		if User.leaderstats.Slaps.Value < 666 then
+			GUI:Notification{
+			Title = "Error",
+			Text = "You must have at least 666 slaps.",
+			Duration = 3,
+			Callback = function() end
+			}
+		elseif User.Character:FindFirstChild("entered") then
+			GUI:Notification{
+			Title = "Error",
+			Text = "You must be in the lobby.",
+			Duration = 3,
+			Callback = function() end
+			}
+		else
+			GUI:Prompt{
+			Followup = false,
+			Title = "Become invisible",
+			Text = "This will last until you die, and your glove will still be visible.",
+			Buttons = {
+			Yes = function()
+				ogGlove = User.leaderstats.Glove.Value
+				fireclickdetector(workspace.Lobby.Ghost.ClickDetector)
+				wait()
+				game.ReplicatedStorage.Ghostinvisibilityactivated:FireServer()
+				wait()
+				fireclickdetector(workspace.Lobby[ogGlove].ClickDetector)
+			end,
+			No = function()
+				return
+			end
+			}
+			}
+		end
+	end
+}
+
+skedaddleCount = 0
+
+Gloves:Button{
+	Name = "Slapstick VFX",
+	Description = "Uses Slapstick's VFX, which works on every glove." ,
+	Callback = function() 
+		if slapstickVFX == "runeffect" then
+			if skedaddleCount == 0 then 
+				game.ReplicatedStorage.slapstick:FireServer("runeffect")
+				skedaddleCount = 1
+			else
+				for i = 1, skedaddleCount do
+					game.ReplicatedStorage.slapstick:FireServer("cancelrun")
+				end
+				skedaddleCount = 0
+			end
+		else
+			game.ReplicatedStorage.slapstick:FireServer(slapstickVFX)
+		end
+	end
+}
+
+Gloves:Toggle{
+	Name = "Slapstick VFX Spam",
+	StartingState = false,
+	Description = "Spams Slapstick's VFX, which works on every glove.",
+	Callback = function(Value) 
+		getgenv().slapstickVFXSpam = Value
+		while getgenv().slapstickVFXSpam do
+			if slapstickVFX == "runeffect" then
+				skedaddleCount = skedaddleCount + 1
+			end
+			game.ReplicatedStorage.slapstick:FireServer(slapstickVFX)
+			task.wait()
+		end
+	end
+}
+
+Gloves:Dropdown{
+	Name = "Slapstick VFX",
+	StartingText = "Choose VFX...",
+	Description = "Selects which Slapstick VFX to spam.",
+	Items = {
+		{"Spawn Costume", "addarm"},
+		{"Skedaddle", "runeffect"},
+		{"Full Charge", "fullcharged"}
+	},
+	Callback = function(Value)
+		slapstickVFX = Value
+	end
+}
+
+Gloves:Toggle{
+	Name = "Zombie SFX Spam",
+	StartingState = false,
+	Description = "Spams Zombie's SFX, which works on every glove.",
+	Callback = function(Value) 
+		getgenv().zombieSFXSpam = Value
+		while getgenv().zombieSFXSpam do
+			game.ReplicatedStorage.b:FireServer("ReplicateSound_Zombie")
+			wait()
+		end
+	end
+}
+
+Gloves:Toggle{
+	Name = "Error SFX Spam",
+	StartingState = false,
+	Description = "Spams Error's SFX, which works on every glove.",
+	Callback = function(Value) 
+		getgenv().errorSFXSpam = Value
+		while getgenv().errorSFXSpam do
+			game.ReplicatedStorage.ErrorDeath:FireServer()
+			wait()
+		end
+	end
+}
+
+Misc:Dropdown{
+	Name = "Teleport",
+	StartingText = "Teleport to...",
+	Description = "Teleports to certain locations in the map.",
+	Items = {
+		"Safe Spot",
+		{"Arena", CFrame.new(-4, -5, 2)},
+		{"Cannon Island", CFrame.new(262, 34, 192)},
+		{"Default Arena", CFrame.new(123, 360, -3)},
+		{"Lobby", CFrame.new(-895, 328, -2)},
+		"Plate",
+		{"Slapple Island", CFrame.new(-395, 51, -14)},
+		"Tournament Arena",
+		{"The Hitman", CFrame.new(17895, -130, -3522)},
+	},
+	Callback = function(Value)
+		if Value == "Plate" then
+			User.Character.HumanoidRootPart.CFrame = workspace.Arena.Plate.CFrame * CFrame.new(0, 2, 0) 
+		elseif Value == "Safe Spot" then
+			User.Character.HumanoidRootPart.CFrame = workspace.SafeSpot.CFrame * CFrame.new(0, 19, 0) 
+		elseif Value == "Tournament Arena" then
+			if workspace:FindFirstChild("TournamentIsland") then
+				User.Character.HumanoidRootPart.CFrame = CFrame.new(3423, 240, -14)
+			else
+				GUI:Notification{
+				Title = "Error",
+				Text = "A tournament hasn't started yet.",
+				Duration = 3,
+				Callback = function() end
+				}
+			end
+		else
+			User.Character.HumanoidRootPart.CFrame = Value
+		end
+	end
+}
+
+Misc:Dropdown{
+	Name = "Subplaces",
+	StartingText = "Go to...",
+	Description = "Teleports to certain subplaces of Slap Battles.",
+	Items = {
+		{"Barzil", 7234087065},
+		{"Binded Maze", 74169485398268},
+		{"Christmas Event", 15228348051},
+		{"Elude Maze", 11828384869},
+		{"Ice Trials", 17290438723},
+		{"Tower of Hell", 115782629143468},
+		{"Where Guide Resides", 18550498098}
+	},
+	Callback = function(Value)
+		GUI:Prompt{
+		Followup = false,
+		Title = "Teleport to subplace",
+		Text = "This will make you leave the game.",
+		Buttons = {
+		Yes = function()
+			game:GetService("TeleportService"):Teleport(Value)
+		end,
+		No = function()
+			return
+		end
+		}
+		}
+	end
+}
+
+Misc:Toggle{
+	Name = "Slapple Farm",
+	StartingState = false,
+	Description = "Collects slapples whenever they spawn, if you aren't in the lobby.",
+	Callback = function(Value) 
+		getgenv().slappleFarm = Value
+		while getgenv().slappleFarm do
+			for i, v in pairs(workspace.Arena.island5.Slapples:GetChildren()) do
+				if v.Glove:FindFirstChild("TouchInterest") then
+					firetouchinterest(User.Character.HumanoidRootPart, v.Glove, 0)
+					firetouchinterest(User.Character.HumanoidRootPart, v.Glove, 1)
+				end
+			end
+			wait()
+		end
+	end
+}
+
+Misc:Button{
+	Name = "Free Animation Pack",
+	Description = "Lets you use the emotes in the Animation Pack gamepass for free." ,
+	Callback = function() 
+		if not getgenv().animPack then
+			getgenv().animPack = true
+			Humanoid = User.Character.Humanoid
+			function stopEmotes()
+				for i, v in pairs(Humanoid:GetPlayingAnimationTracks()) do
+					if v.Animation.Parent == game.ReplicatedStorage.AnimationPack then
+						v:Stop()
+					end
+				end
+			end
+			User.Chatted:Connect(function(msg)
+				repeat task.wait() until User.Character
+				Humanoid = User.Character.Humanoid
+				Emotes = {
+					Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Floss),
+					Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Groove),
+					Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Headless),
+					Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Helicopter),
+					Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Kick),
+					Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.L),
+					Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Laugh),
+					Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Parker),
+					Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Spasm),
+					Humanoid:LoadAnimation(game.ReplicatedStorage.AnimationPack.Thriller)
+				}
+				if string.lower(msg) == "/e floss" then
+					stopEmotes()
+					Emotes[1]:Play()
+				elseif string.lower(msg) == "/e groove" then
+					stopEmotes()
+					Emotes[2]:Play()
+				elseif string.lower(msg) == "/e headless" then
+					stopEmotes()
+					Emotes[3]:Play()
+				elseif string.lower(msg) == "/e helicopter" then
+					stopEmotes()
+					Emotes[4]:Play()
+				elseif string.lower(msg) == "/e kick" then
+					stopEmotes()
+					Emotes[5]:Play()
+				elseif string.lower(msg) == "/e l" then
+					stopEmotes()
+					Emotes[6]:Play()
+				elseif string.lower(msg) == "/e laugh" then
+					stopEmotes()
+					Emotes[7]:Play()
+					game.ReplicatedStorage.AnimationSound:FireServer("LAUGH")
+				elseif string.lower(msg) == "/e parker" then
+					stopEmotes()
+					Emotes[8]:Play()
+				elseif string.lower(msg) == "/e spasm" then
+					stopEmotes()
+					Emotes[9]:Play()
+				elseif string.lower(msg) == "/e thriller" then
+					stopEmotes()
+					Emotes[10]:Play()
+				end
+			end)
+			while wait() do
+				if Humanoid.MoveDirection.Magnitude > 0 then
+					stopEmotes()
+				end
+			end
+		end
+	end
+}
+
+Misc:Textbox{
+	Name = "Change nametag",
+	Description = "Changes your nametag, set to nothing for original nametag. (Clientsided)",
+	Placeholder = "Text",
+	Callback = function(Value) 
+		getgenv().Nametag = Value
+		if getgenv().Nametag == "" and User.Character:FindFirstChild("Head") and User.Character.Head:FindFirstChild("Nametag") then
+			User.Character.Head.Nametag.TextLabel.Text = User.Name
+		end
+	end
+}
+
+if not getgenv().changeNametag then
+	task.spawn(function()
+		getgenv().changeNametag = true
+		while task.wait() do
+			if getgenv().Nametag and getgenv().Nametag ~= "" and User.Character:FindFirstChild("Head") and User.Character.Head:FindFirstChild("Nametag").TextLabel.Text ~= getgenv().Nametag then
+				User.Character.Head.Nametag.TextLabel.Text = getgenv().Nametag
+			end
+		end
+	end)
+end
+
+Misc:Button{
+	Name = "Infinite Yield",
+	Description = "Loads Infinite Yield, a well-known command line script. This may cause issues." ,
+	Callback = function() 
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Guy-that-exists/infiniteyieldxenodex/master/source"))()
+	end
+}
+
+Player:Slider{
+	Name = "Walkspeed",
+	Description = "Changes how fast you walk.",
+	Default = 20,
+	Min = 20,
+	Max = 1000,
+	Callback = function(Value) 
+		getgenv().Walkspeed = Value
+		User.Character.Humanoid.WalkSpeed = getgenv().Walkspeed
+	end
+}
+
+Player:Toggle{
+	Name = "Keep Walkspeed",
+	StartingState = false,
+	Description = "Doesn't let your walkspeed get changed.",
+	Callback = function(Value) 
+		getgenv().keepWalkspeed = Value
+		while getgenv().keepWalkspeed do
+			if User.Character:FindFirstChild("Humanoid") and User.Character.Humanoid.WalkSpeed ~= getgenv().Walkspeed then
+				User.Character.Humanoid.WalkSpeed = getgenv().Walkspeed
+                	end
+			wait()
+		end
+	end
+}
+
+Player:Slider{
+	Name = "Jumppower",
+	Description = "Changes how high you jump.",
+	Default = 50,
+	Min = 50,
+	Max = 1000,
+	Callback = function(Value) 
+		getgenv().Jumppower = Value
+		User.Character.Humanoid.JumpPower = getgenv().Jumppower
+	end
+}
+
+Player:Toggle{
+	Name = "Keep Jumppower",
+	StartingState = false,
+	Description = "Doesn't let your jumppower get changed.",
+	Callback = function(Value) 
+		getgenv().keepJumppower = Value
+		while getgenv().keepJumppower do
+			if User.Character:FindFirstChild("Humanoid") and User.Character.Humanoid.JumpPower ~= getgenv().Jumppower then
+				User.Character.Humanoid.JumpPower = getgenv().Jumppower
+			end
+			wait()
+		end
+	end
+}
+
+for i,v in pairs(game.CoreGui:GetChildren()) do
+	if v.Name == "Mercury" then
+		for i,c in pairs(v:GetDescendants()) do
+			if c.ClassName == "Frame" and c.BackgroundTransparency ~= 1 then
+				c.BackgroundTransparency = 0.5
+			elseif c.ClassName == "TextButton" and c.BackgroundTransparency ~= 1 then
+				c.BackgroundTransparency = 0.5
+			end
+		end
+	end
+end
