@@ -357,16 +357,18 @@ Protection:Toggle{
 }
 
 Protection:Toggle{
-	Name = "Anti Ragdoll",
+	Name = "Anti Knockback",
 	StartingState = false,
-	Description = "Stops you from being ragdolled.",
+	Description = "Stops you from taking knockback.",
 	Callback = function(Value) 
 		getgenv().antiRagdoll = Value
 		while getgenv().antiRagdoll do
-			if User.Character:FindFirstChild("Ragdolled") and User.Character.Ragdolled.Value == true then
+			if User.Character:FindFirstChild("Torso") and User.Character:FindFirstChild("Ragdolled") and User.Character.Ragdolled.Value == true then
 				User.Character.Torso.Anchored = true
-				repeat wait() until User.Character.Ragdolled.Value == false
-				User.Character.Torso.Anchored = false
+				repeat wait() until not User.Character:FindFirstChild("Ragdolled") or User.Character.Ragdolled.Value == false
+				if User.Character:FindFirstChild("Torso") then
+					User.Character.Torso.Anchored = false
+				end
 			end
 			wait()
 		end
