@@ -470,8 +470,8 @@ Protection:Toggle{
 	StartingState = false,
 	Description = "Stops you from taking knockback.",
 	Callback = function(Value) 
-		getgenv().antiRagdoll = Value
-		while getgenv().antiRagdoll do
+		getgenv().antiKnockback = Value
+		while getgenv().antiKnockback do
 			if User.Character:FindFirstChild("Torso") and User.Character:FindFirstChild("Ragdolled") and User.Character.Ragdolled.Value == true then
 				User.Character.Torso.Anchored = true
 				repeat wait() until not User.Character:FindFirstChild("Ragdolled") or User.Character.Ragdolled.Value == false
