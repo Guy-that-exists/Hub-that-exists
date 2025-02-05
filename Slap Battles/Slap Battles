@@ -753,7 +753,7 @@ Protection:Toggle{
 	Callback = function(Value) 
 		getgenv().antiStun = Value
 		while getgenv().antiStun do
-			if User.Character:FindFirstChild("Humanoid") and User.Character.Ragdolled.Value == false and User.Character.Humanoid.PlatformStand == true then
+			if User.Character:FindFirstChild("Humanoid") and User.Character:FindFirstChild("Ragdolled") and User.Character.Ragdolled.Value == false and User.Character.Humanoid.PlatformStand == true then
 				User.Character.Humanoid.PlatformStand = false
 			end
 			wait()
