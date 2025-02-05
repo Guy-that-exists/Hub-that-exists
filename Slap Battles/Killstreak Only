@@ -1231,8 +1231,8 @@ if not getgenv().changeNametag then
 	task.spawn(function()
 		getgenv().changeNametag = true
 		while task.wait() do
-			if getgenv().Nametag and getgenv().Nametag ~= "" and User.Character:FindFirstChild("Head") and User.Character.Head:FindFirstChild("Nametag").TextLabel.Text ~= getgenv().Nametag then
-				User.Character.Head.Nametag.TextLabel.Text = getgenv().Nametag
+			if getgenv().Nametag and getgenv().Nametag ~= "" and User.Character:FindFirstChild("Head") and User.Character.Head.Nametag.TextLabel.Text ~= getgenv().Nametag then
+				User.Character.Head:WaitForChild("Nametag").TextLabel.Text = getgenv().Nametag
 			end
 		end
 	end)
