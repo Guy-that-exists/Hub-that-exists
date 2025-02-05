@@ -148,7 +148,7 @@ if not getgenv().slapAura then
 				end
 				for i,v in pairs(game.Players:GetChildren()) do
 					if v ~= User and User.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-						if v.Character:FindFirstChild("HumanoidRootPart") and not v.Character:FindFirstChild("Dead") and v.Character:WaitForChild("inMatch").Value == true and v.Character.Ragdolled.Value == false then
+						if v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("Ragdolled") and not v.Character:FindFirstChild("Dead") and v.Character:WaitForChild("inMatch").Value == true and v.Character.Ragdolled.Value == false then
 							Magnitude = (User.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
                         				if Magnitude <= getgenv().Range then
 								game.ReplicatedStorage.Events.Slap:FireServer(v.Character.HumanoidRootPart, true)
