@@ -265,7 +265,7 @@ if not getgenv().slapAura then
 				end
 				for i,v in pairs(game.Players:GetChildren()) do
 					if v ~= User and User.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-						if v.Character:FindFirstChild("HumanoidRootPart") and not v.Character.HumanoidRootPart:FindFirstChild("BlockedShield") and not v.Character:FindFirstChild("Counterd") and not v.Character:FindFirstChild("Mirage") and not v.Character:FindFirstChild("rock") and not usingParry(v) and v.Character.Ragdolled.Value == false then
+						if v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("Ragdolled") and not v.Character.HumanoidRootPart:FindFirstChild("BlockedShield") and not v.Character:FindFirstChild("Counterd") and not v.Character:FindFirstChild("Mirage") and not v.Character:FindFirstChild("rock") and not usingParry(v) and v.Character.Ragdolled.Value == false then
 							if v.Character.isInArena.Value == true or User.leaderstats.Glove.Value == "Boxer" then
 								if not v.Character:FindFirstChild("Reversed") or User.leaderstats.Glove.Value == "Error" then
 									Magnitude = (User.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
