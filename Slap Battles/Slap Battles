@@ -275,7 +275,7 @@ if not getgenv().slapAura then
 										elseif slapRemotes[User.leaderstats.Glove.Value] then
 											slapRemotes[User.leaderstats.Glove.Value]:FireServer(v.Character.HumanoidRootPart, true)
 										elseif User.leaderstats.Glove.Value == "Boxer" then
-											game.ReplicatedStorage.Events.Boxing:FireServer(v, true)
+											game.ReplicatedStorage.Events.Boxing:FireServer(v.Character, true)
 										else
 											game.ReplicatedStorage.GeneralHit:FireServer(v.Character.HumanoidRootPart, true)
 										end
@@ -311,6 +311,7 @@ Combat:Button{
 				firetouchinterest(User.Character:WaitForChild("HumanoidRootPart"), workspace.Lobby.Teleport1, 1)
 			end
 			repeat wait() until User.Character:FindFirstChildOfClass("Tool") or User.Backpack:FindFirstChildOfClass("Tool")
+			wait(0.1)
 			for i,v in pairs(User.Character:GetChildren()) do
 				if v.ClassName == "Tool" and v:FindFirstChild("Glove") then
 					v.Parent = game.LogService
@@ -925,6 +926,7 @@ Badges:Button{
 					repeat wait() until game.Players.LocalPlayer
 					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(4174, 3498, 250)
 					fireclickdetector(workspace:WaitForChild("BoxingGloves").ClickDetector)
+					wait(0.1)
 					game:GetService("TeleportService"):Teleport(6403373529)
     				]])
 			end
