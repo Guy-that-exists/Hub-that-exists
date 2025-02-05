@@ -435,6 +435,11 @@ Combat:Toggle{
 	Description = "Spams Slapstick's ability, which works on every glove.",
 	Callback = function(Value) 
 		getgenv().slapstickSpam = Value
+		if not getgenv().slapstick then
+			getgenv().slapstick = true
+			game.ReplicatedStorage.slapstick:FireServer("runeffect")
+			game.ReplicatedStorage.slapstick:FireServer("cancelrun")
+		end
 		while getgenv().slapstickSpam do
 			game.ReplicatedStorage.slapstick:FireServer("dash")
 			task.wait()
