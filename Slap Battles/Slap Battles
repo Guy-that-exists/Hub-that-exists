@@ -1834,7 +1834,7 @@ Misc:Button{
 	Name = "Infinite Yield",
 	Description = "Loads Infinite Yield, a well-known command line script. This may cause issues." ,
 	Callback = function() 
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/Guy-that-exists/infiniteyieldxenodex/master/source"))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
 	end
 }
 
