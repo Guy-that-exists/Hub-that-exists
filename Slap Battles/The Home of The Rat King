@@ -1,0 +1,143 @@
+-- Message guythatexists. if you have issues or suggestions, please give credits if you want to use or edit this
+
+if not game:IsLoaded() then
+	game.Loaded:Wait()
+end
+
+game:GetService("GuiService"):ClearError()
+
+local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/Guy-that-exists/mercury-lib-edit/master/src.lua"))()
+
+local GUI = Mercury:Create{
+	Title = "Slap Battles hub that exists",
+	Name = "Hub that exists",
+	Size = UDim2.fromOffset(600, 400),
+	Theme = Mercury.Themes.Dark,
+	Link = "hubthatexists"
+}
+
+GUI:Credit{
+	Name = "Guy that exists",
+	Description = "Script Developer, message if you have issues or suggestions.",
+	Discord = "guythatexists."
+}
+
+GUI:Credit{
+	Name = "Script Repository",
+	Description = "Script Repository, please give credit if you wish to use or edit this.",
+	Github = "https://github.com/Guy-that-exists/Hub-that-exists"
+}
+
+local Combat = GUI:Tab{
+	Name = "Combat",
+	Icon = "rbxassetid://124159074947754"
+}
+
+local Misc = GUI:Tab{
+	Name = "Miscellaneous",
+	Icon = "rbxassetid://4370318685"
+}
+
+local Player = GUI:Tab{
+	Name = "Player",
+	Icon = "rbxassetid://7743875962"
+}
+
+User = game.Players.LocalPlayer
+
+Combat:Toggle{
+	Name = "Kill rats",
+	StartingState = false,
+	Description = "Slaps rats when they spawn.",
+	Callback = function(Value) 
+		getgenv().killRats = Value
+		while getgenv().killRats do
+			for i,v in pairs(workspace.Game.Enemies:GetChildren()) do
+				if v:FindFirstChild("Hitbox") then
+					game.ReplicatedStorage.Remotes.GloveHit:FireServer(v.Hitbox)
+				end
+			end
+			task.wait()
+		end
+	end
+}
+
+Misc:Button{
+	Name = "Infinite Yield",
+	Description = "Loads Infinite Yield, a well-known command line script. This may cause issues." ,
+	Callback = function() 
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Guy-that-exists/infiniteyieldxenodex/master/source"))()
+	end
+}
+
+Player:Slider{
+	Name = "Walkspeed",
+	Description = "Changes how fast you walk.",
+	Default = 20,
+	Min = 20,
+	Max = 1000,
+	Callback = function(Value) 
+		getgenv().Walkspeed = Value
+		User.Character.Humanoid.WalkSpeed = getgenv().Walkspeed
+	end
+}
+
+Player:Toggle{
+	Name = "Keep Walkspeed",
+	StartingState = false,
+	Description = "Doesn't let your walkspeed get changed.",
+	Callback = function(Value) 
+		getgenv().keepWalkspeed = Value
+		while getgenv().keepWalkspeed do
+			if User.Character:FindFirstChild("Humanoid") and User.Character.Humanoid.WalkSpeed ~= getgenv().Walkspeed then
+				User.Character.Humanoid.WalkSpeed = getgenv().Walkspeed
+                	end
+			wait()
+		end
+	end
+}
+
+Player:Slider{
+	Name = "Jumppower",
+	Description = "Changes how high you jump.",
+	Default = 50,
+	Min = 50,
+	Max = 1000,
+	Callback = function(Value) 
+		getgenv().Jumppower = Value
+		if User.Character:FindFirstChild("Humanoid") and User.Character.Humanoid.UseJumpPower == false then
+			User.Character.Humanoid.UseJumpPower = true
+		end
+		User.Character.Humanoid.JumpPower = getgenv().Jumppower
+	end
+}
+
+Player:Toggle{
+	Name = "Keep Jumppower",
+	StartingState = false,
+	Description = "Doesn't let your jumppower get changed.",
+	Callback = function(Value) 
+		getgenv().keepJumppower = Value
+		while getgenv().keepJumppower do
+			if User.Character:FindFirstChild("Humanoid") and User.Character.Humanoid.JumpPower ~= getgenv().Jumppower then
+				User.Character.Humanoid.JumpPower = getgenv().Jumppower
+			end
+			if User.Character:FindFirstChild("Humanoid") and User.Character.Humanoid.UseJumpPower == false then
+				User.Character.Humanoid.UseJumpPower = true
+			end
+			wait()
+		end
+	end
+}
+
+for i,v in pairs(gethui():GetChildren()) do
+	if v.Name == "Mercury" then
+		for i,c in pairs(v:GetDescendants()) do
+			if c.ClassName == "Frame" and c.BackgroundTransparency ~= 1 then
+				c.BackgroundTransparency = 0.5
+			elseif c.ClassName == "TextButton" and c.BackgroundTransparency ~= 1 then
+				c.BackgroundTransparency = 0.5
+			end
+		end
+	end
+end
