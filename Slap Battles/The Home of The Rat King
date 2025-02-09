@@ -62,6 +62,23 @@ Combat:Toggle{
 	end
 }
 
+Combat:Toggle{
+	Name = "Kill rats (Slower)",
+	StartingState = false,
+	Description = "Kills rats slower, might help with lag issues.",
+	Callback = function(Value) 
+		getgenv().killRats = Value
+		while getgenv().killRats do
+			for i,v in pairs(workspace.Game.Enemies:GetChildren()) do
+				if v:FindFirstChild("Hitbox") then
+					game.ReplicatedStorage.Remotes.GloveHit:FireServer(v.Hitbox)
+				end
+			end
+			wait()
+		end
+	end
+}
+
 Misc:Button{
 	Name = "Infinite Yield",
 	Description = "Loads Infinite Yield, a well-known command line script. This may cause issues." ,
