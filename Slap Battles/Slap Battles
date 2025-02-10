@@ -172,7 +172,7 @@ end
 local GUI = Mercury:Create{
 	Title = "Slap Battles hub that exists",
 	Name = "Hub that exists",
-	Size = UDim2.fromOffset(600, 400),
+	Size = UDim2.fromOffset(600, 375),
 	Theme = Mercury.Themes.Dark,
 	Link = "hubthatexists"
 }
@@ -1909,7 +1909,7 @@ if game:GetService("UserInputService").TouchEnabled == true and not game.CoreGui
 	mobileButton.Name = "MercuryMobileButton"
 
 	local button = Instance.new("ImageButton", mobileButton)
-	button.Size = UDim2.fromOffset(100, 100)
+	button.Size = UDim2.fromOffset(50, 50)
 	button.Position = UDim2.fromOffset(50, 50)
 	button.Draggable = true
 	button.BackgroundColor3 = Color3.fromRGB(50, 50, 55)
@@ -1919,8 +1919,8 @@ if game:GetService("UserInputService").TouchEnabled == true and not game.CoreGui
 	uiCorner.CornerRadius = UDim.new(0, 7)
 
 	local icon = Instance.new("ImageLabel", button)
-	icon.Size = UDim2.fromOffset(75, 75)
-	icon.Position = UDim2.fromScale(0.125, 0.125)
+	icon.Size = UDim2.fromOffset(25, 25)
+	icon.Position = UDim2.fromScale(0.25, 0.25)
 	icon.BackgroundTransparency = 1
 	icon.Image = "rbxassetid://132049320741473"
 	icon.ImageRectSize = Vector2.new(-1000, 1000)
