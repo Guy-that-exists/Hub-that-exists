@@ -704,6 +704,28 @@ Protection:Toggle{
 }
 
 Protection:Toggle{
+	Name = "Anti Obby",
+	StartingState = false,
+	Description = "Stops Obby's ability from affecting you.",
+	Callback = function(Value) 
+		getgenv().antiObby = Value
+		while getgenv().antiObby do
+			for i,v in pairs(workspace:GetChildren()) do
+				if v.Name:find("LavaBlock") or v.Name:find("LavaSpinner") then
+					v.CanTouch = false
+				end
+			end
+			wait()
+		end
+			for i,v in pairs(workspace:GetChildren()) do
+				if v.Name:find("LavaBlock") or v.Name:find("LavaSpinner") then
+					v.CanTouch = false
+				end
+			end
+	end
+}
+
+Protection:Toggle{
 	Name = "Anti Pusher",
 	StartingState = false,
 	Description = "Stops Pusher's ability from affecting you.",
