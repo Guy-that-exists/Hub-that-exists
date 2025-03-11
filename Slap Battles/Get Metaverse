@@ -5,7 +5,7 @@ if teleportFunc then
 			game.Loaded:Wait()
         	end
         	repeat wait() until game.Players.LocalPlayer
-        	fireclickdetector(workspace.Kitchen.Fridge.GrantAward.ClickDetector)
+        	fireclickdetector(workspace.Kitchen.Fridge:WaitForChild("GrantAward").ClickDetector)
           	game.Players.LocalPlayer.Backpack:WaitForChild("Brewzucki")
           	fireclickdetector(workspace.Microwave.HitBox.ClickDetector)
           	repeat wait() until not game.Players.LocalPlayer.Backpack:FindFirstChild("Brewzucki")
