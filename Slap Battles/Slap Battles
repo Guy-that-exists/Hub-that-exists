@@ -311,7 +311,8 @@ Combat:Button{
 				firetouchinterest(User.Character:WaitForChild("HumanoidRootPart"), workspace.Lobby.Teleport1, 1)
 			end
 			repeat wait() until User.Character:FindFirstChildOfClass("Tool") or User.Backpack:FindFirstChildOfClass("Tool")
-			wait(0.1)
+			User.Character.HumanoidRootPart.CFrame = workspace.SafeSpot.CFrame * CFrame.new(0, 19, 0) 
+			wait(0.5)
 			for i,v in pairs(User.Character:GetChildren()) do
 				if v.ClassName == "Tool" and v:FindFirstChild("Glove") then
 					v.Parent = game.LogService
@@ -376,6 +377,8 @@ Combat:Toggle{
 	end
 }
 
+adminAbility = "Anvil"
+
 Combat:Toggle{
 	Name = "Admin Spam",
 	StartingState = false,
@@ -402,6 +405,9 @@ Combat:Dropdown{
 		adminAbility = Value
 	end
 }
+
+
+retroAbility = "Ban Hammer"
 
 Combat:Toggle{
 	Name = "Retro Spam",
@@ -1047,7 +1053,7 @@ Badges:Button{
 }
 
 Badges:Button{
-	Name = "Get Clock (buggy)",
+	Name = "Get Clock",
 	Description = 'Gives you the "Shattered Memories" badge.' ,
 	Callback = function() 
 		GUI:Prompt{
@@ -1163,11 +1169,11 @@ Badges:Button{
 					end
 					repeat wait() until game.Players.LocalPlayer
 					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-557, 180, 54)
-					wait(0.1)
+					wait(0.25)
 					fireproximityprompt(workspace.FinishDoor_Ice.Model.Part.ProximityPrompt)
 				]])
 			end
-			game:GetService("TeleportService"):Teleport(11828384869)
+			game:GetService("TeleportService"):Teleport(17290438723)
 		end,
 		No = function()
 			return
@@ -1329,6 +1335,104 @@ Badges:Toggle{
 	end
 }
 
+Badges:Button{
+	Name = "Get Metaverse",
+	Description = 'Gives you the "Day in the life of a small Game Developer" badge.' ,
+	Callback = function() 
+		GUI:Prompt{
+		Followup = false,
+		Title = "Get Metaverse",
+		Text = "This will make you leave the game temporarily.",
+		Buttons = {
+		Yes = function()
+			local teleportFunc = queueonteleport or queue_on_teleport
+			if teleportFunc then
+				teleportFunc([[
+					if not game:IsLoaded() then
+						game.Loaded:Wait()
+					end
+					repeat wait() until game.Players.LocalPlayer
+					game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Warning",Text = "If you haven't been teleported after a while, rejoin and use this feature again.",Icon = "rbxassetid://7733658504",Duration = 999})
+					repeat wait() until workspace.Buildings:FindFirstChild("wizard twoer 2")
+					firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Buildings["wizard twoer 2"].Model.Trigger, 0)
+					firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, workspace.Buildings["wizard twoer 2"].Model.Trigger, 1)
+					loadstring(game:HttpGet("https://raw.githubusercontent.com/Guy-that-exists/Hub-that-exists/refs/heads/main/Slap%20Battles/Get%20Metaverse"))()
+				]])
+			end
+			game:GetService("TeleportService"):Teleport(7234087065)
+		end,
+		No = function()
+			return
+		end
+		}
+		}
+	end
+}
+
+Badges:Button{
+	Name = "Get Mouse",
+	Description = 'Gives you the "Rats, We\'re Rats, We\'re the Rats" badge.',
+	Callback = function() 
+		if User.leaderstats.Slaps.Value < 11500 then
+			GUI:Notification{
+			Title = "Error",
+			Text = "You must have at least 11,500 slaps.",
+			Duration = 3,
+			Callback = function() end
+			}
+		elseif User.Character:FindFirstChild("entered") and User.leaderstats.Glove.Value ~= "el gato" then
+			GUI:Notification{
+			Title = "Error",
+			Text = "You must be in the lobby.",
+			Duration = 3,
+			Callback = function() end
+			}
+		else
+			GUI:Prompt{
+			Followup = false,
+			Title = "Get Mouse",
+			Text = "This will make you leave the game temporarily.",
+			Buttons = {
+			Yes = function()
+				local teleportFunc = queueonteleport or queue_on_teleport
+				if teleportFunc then
+					teleportFunc([[
+						if not game:IsLoaded() then
+							game.Loaded:Wait()
+						end
+						repeat wait() until game.Players.LocalPlayer
+						game.ReplicatedStorage.Remotes.PlaceBuilding:FireServer("City", Vector3.new(), 0)
+						game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Getting Mouse...",Text = "This will take 6-7 minutes.",Icon = "rbxassetid://4625542830",Duration = 400})
+						repeat wait()
+						for i,v in pairs(workspace.Game.Enemies:GetChildren()) do
+							if v:FindFirstChild("Hitbox") then
+								game.ReplicatedStorage.Remotes.GloveHit:FireServer(v.Hitbox)
+							end
+						end
+						until game.Players.LocalPlayer.PlayerGui.MainGui.OrbFrame.OrbLabel.Text == "3,000"
+						game.ReplicatedStorage.Remotes.UnlockGloveWithOrbs:FireServer()
+					]])
+				end
+				ogGlove = User.leaderstats.Glove.Value
+				if not User.Character:FindFirstChild("entered") and User.leaderstats.Glove.Value ~= "el gato" then
+					fireclickdetector(workspace.Lobby["el gato"].ClickDetector)
+				end
+				wait()
+				fireclickdetector(workspace.Cheese.ClickDetector)
+				wait()
+				if not User.Character:FindFirstChild("entered") then
+					fireclickdetector(workspace.Lobby[ogGlove].ClickDetector)
+				end
+			end,
+			No = function()
+				return
+			end
+			}
+			}
+		end
+	end
+}
+
 Badges:Toggle{
 	Name = "Phase Farm",
 	StartingState = false,
@@ -1372,15 +1476,15 @@ Badges:Button{
 			end
 			ogLocation = User.Character.HumanoidRootPart.CFrame
 			User.Character.HumanoidRootPart.CFrame = workspace.SafeSpot.CFrame * CFrame.new(0, 19, 0) 
-			wait(0.25)
+			wait(0.5)
 			game.ReplicatedStorage.Fortlol:FireServer()
-			wait(0.25)
+			wait(0.5)
 			for i,v in pairs(workspace:GetChildren()) do
                     		if v.Name == "Part" and v:FindFirstChild("brownsmoke") and v:FindFirstChild("Sound") and v.Sound.SoundId == "rbxassetid://428545949" then
 					User.Character.HumanoidRootPart.CFrame = v.CFrame
 				end
 			end
-			wait(0.1)
+			wait(0.25)
 			User.Character.HumanoidRootPart.CFrame = ogLocation
 			if not User.Character:FindFirstChild("entered") then
 				fireclickdetector(workspace.Lobby[ogGlove].ClickDetector)
@@ -1444,6 +1548,48 @@ Badges:Toggle{
 			end
 			wait()
 		end
+	end
+}
+
+Badges:Button{
+	Name = "Get Swordfighter",
+	Description = 'Gives you the "Sword Fighter of The Heights" badge.' ,
+	Callback = function() 
+		GUI:Prompt{
+		Followup = false,
+		Title = "Get Swordfighter",
+		Text = "This will make you leave the game temporarily.",
+		Buttons = {
+		Yes = function()
+			local teleportFunc = queueonteleport or queue_on_teleport
+			if teleportFunc then
+				teleportFunc([[
+					if not game:IsLoaded() then
+						game.Loaded:Wait()
+					end
+					repeat wait() until game.Players.LocalPlayer
+					game.ReplicatedStorage.Remotes.FinishedBossDialogue:FireServer(true)
+					workspace.Map.Components.NPCs.FinalBoss.FinalBoss.Humanoid.Health = 0
+					wait(0.5)
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-7, 846, 90)
+					repeat wait() until game.Players.LocalPlayer.PlayerGui:WaitForChild("SkipButton").SkipDialogueButton.Visible == true
+					game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Information",Text = "You can skip the dialogue to get the badge faster.",Icon = "rbxassetid://7733964719",Duration = 99})
+					repeat wait() until game.Players.LocalPlayer.PlayerGui.SkipButton.SkipDialogueButton.Visible == false
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-6, 852, 288)
+					wait(0.5)
+					fireproximityprompt(workspace.Map.Components.GloveIsland.ClaimGlove.ProximityPrompt)
+				]])
+			end
+			User.Character.HumanoidRootPart.CFrame = CFrame.new(316, 40, 196)
+			wait(0.5)
+			game.ReplicatedStorage.RetroAbility:FireServer("Ban Hammer")
+			User.Character.HumanoidRootPart.CFrame = workspace.Arena.CannonIsland["Cannon Island [OLD]"].Model.Towers:WaitForChild("Ring of Fire").CFrame
+		end,
+		No = function()
+			return
+		end
+		}
+		}
 	end
 }
 
@@ -1532,28 +1678,6 @@ Badges:Button{
 	end
 }
 
-Gloves:Toggle{
-	Name = "Slap Farm",
-	StartingState = false,
-	Description = "Gives you around 1,000 slaps per minute, this requires the Boxer glove.",
-	Callback = function(Value) 
-		getgenv().slapFarm = Value
-		if User.leaderstats.Glove.Value == "Boxer" then
-			while getgenv().slapFarm do
-				game.ReplicatedStorage.Events.Boxing:FireServer(game.Players.LocalPlayer, false)
-				task.wait()
-			end
-		elseif Value == true then
-			GUI:Notification{
-			Title = "Error",
-			Text = "You must have the Boxer glove equipped.",
-			Duration = 3,
-			Callback = function() end
-			}
-		end
-	end
-}
-
 Gloves:Button{
 	Name = "Invisibility",
 	Description = "Makes you invisible until you die." ,
@@ -1595,7 +1719,21 @@ Gloves:Button{
 	end
 }
 
+Gloves:Toggle{
+	Name = "Prop VFX Spam",
+	StartingState = false,
+	Description = "Spams Prop's VFX, which works on every glove.",
+	Callback = function(Value) 
+		getgenv().propVFXSpam = Value
+		while getgenv().propVFXSpam do
+			game.ReplicatedStorage.Prop:FireServer()
+			wait()
+		end
+	end
+}
+
 skedaddleCount = 0
+slapstickVFX = "fullcharged"
 
 Gloves:Button{
 	Name = "Slapstick VFX",
@@ -1644,19 +1782,6 @@ Gloves:Dropdown{
 	},
 	Callback = function(Value)
 		slapstickVFX = Value
-	end
-}
-
-Gloves:Toggle{
-	Name = "Zombie SFX Spam",
-	StartingState = false,
-	Description = "Spams Zombie's SFX, which works on every glove.",
-	Callback = function(Value) 
-		getgenv().zombieSFXSpam = Value
-		while getgenv().zombieSFXSpam do
-			game.ReplicatedStorage.b:FireServer("ReplicateSound_Zombie")
-			wait()
-		end
 	end
 }
 
