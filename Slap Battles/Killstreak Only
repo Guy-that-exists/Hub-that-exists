@@ -160,23 +160,21 @@ if not getgenv().slapAura then
 				end
 				for i,v in pairs(game.Players:GetChildren()) do
 					if v ~= User and User.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-						if v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("Ragdolled") and not v.Character.HumanoidRootPart:FindFirstChild("BlockedShield") and not v.Character:FindFirstChild("Counterd") and not v.Character:FindFirstChild("Mirage") and not v.Character:FindFirstChild("rock") and not usingParry(v) and v.Character.Ragdolled.Value == false then
-							if v.Character.isInArena.Value == true or User.leaderstats.Glove.Value == "Boxer" then
-								if not v.Character:FindFirstChild("Reversed") or User.leaderstats.Glove.Value == "Error" then
-									Magnitude = (User.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-                        						if Magnitude <= getgenv().Range then
-										if User.Character:FindFirstChild("Default") or User.Backpack:FindFirstChild("Default") then
-											game.ReplicatedStorage.b:FireServer(v.Character.HumanoidRootPart, true)
-										else
-											KSHit:FireServer(v.Character.HumanoidRootPart, true)
-										end
-										for i,g in pairs(User.Character:GetChildren()) do
-											if g.ClassName == "Tool" and g:FindFirstChild("Glove") then
-												g:Activate()
-                   									end
-										end
-										wait(0.1)
+						if v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("Ragdolled") and not v.Character.HumanoidRootPart:FindFirstChild("BlockedShield") and not v.Character:FindFirstChild("Counterd") and not v.Character:FindFirstChild("Mirage") and not v.Character:FindFirstChild("rock") and not usingParry(v) and v.Character.Ragdolled.Value == false and v.Character.isInArena.Value == true  then
+							if not v.Character:FindFirstChild("Reversed") or User.leaderstats.Glove.Value == "Error" then
+								Magnitude = (User.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+                        					if Magnitude <= getgenv().Range then
+									if User.Character:FindFirstChild("Default") or User.Backpack:FindFirstChild("Default") then
+										game.ReplicatedStorage.b:FireServer(v.Character.HumanoidRootPart, true)
+									else
+										KSHit:FireServer(v.Character.HumanoidRootPart, true)
 									end
+									for i,g in pairs(User.Character:GetChildren()) do
+										if g.ClassName == "Tool" and g:FindFirstChild("Glove") then
+											g:Activate()
+                   								end
+									end
+									wait(0.1)
 								end
 							end
 						end
@@ -590,83 +588,75 @@ Badges:Button{
 	Name = "Get Chain",
 	Description = 'Gives you the "THE ACCIDENT" badge.' ,
 	Callback = function() 
-		if User.leaderstats.Slaps.Value >= 1000 then
-			GUI:Prompt{
-			Followup = false,
-			Title = "Get Chain",
-			Text = "This will make you leave the game temporarily.",
-			Buttons = {
-			Yes = function()
-				local teleportFunc = queueonteleport or queue_on_teleport
-				if teleportFunc then
-					teleportFunc([[
-						if not game:IsLoaded() then
-							game.Loaded:Wait()
-						end
-						repeat wait() until game.Players.LocalPlayer
-						code = {}
-						for i,v in pairs(workspace.Map:WaitForChild("CodeBrick").SurfaceGui:GetChildren()) do
-							if v.Name == "IMGTemplate" then
-        							if v.Image == "http://www.roblox.com/asset/?id=9648769161" then
-            								table.insert(code, "4")
-        							elseif v.Image == "http://www.roblox.com/asset/?id=9648765536" then
-            								table.insert(code, "2")
-        							elseif v.Image == "http://www.roblox.com/asset/?id=9648762863" then
-            								table.insert(code, "3")
-        							elseif v.Image == "http://www.roblox.com/asset/?id=9648759883" then
-            								table.insert(code, "9")
-        							elseif v.Image == "http://www.roblox.com/asset/?id=9648755440" then
-            								table.insert(code, "8")
-        							elseif v.Image == "http://www.roblox.com/asset/?id=9648752438" then
-            								table.insert(code, "2")
-        							elseif v.Image == "http://www.roblox.com/asset/?id=9648749145" then
-            								table.insert(code, "8")
-        							elseif v.Image == "http://www.roblox.com/asset/?id=9648745618" then
-            								table.insert(code, "3")
-        							elseif v.Image == "http://www.roblox.com/asset/?id=9648742013" then
-									table.insert(code, "7")
-        							elseif v.Image == "http://www.roblox.com/asset/?id=9648738553" then
-            								table.insert(code, "8")
-        							elseif v.Image == "http://www.roblox.com/asset/?id=9648734698" then
-            								table.insert(code, "2")
-        							elseif v.Image == "http://www.roblox.com/asset/?id=9648730082" then
-            								table.insert(code, "6")
-        							elseif v.Image == "http://www.roblox.com/asset/?id=9648723237" then
-            								table.insert(code, "3")
-        							elseif v.Image == "http://www.roblox.com/asset/?id=9648718450" then
-            								table.insert(code, "6")
-        							elseif v.Image == "http://www.roblox.com/asset/?id=9648715920" then
-            								table.insert(code, "6")
-       								elseif v.Image == "http://www.roblox.com/asset/?id=9648712563" then
-            								table.insert(code, "2")
-        							end
-    							end
-						end
-						fireclickdetector(workspace.Map.OriginOffice.Door.Keypad.Buttons.Reset.ClickDetector)
-						for i = 1, 4 do
-							Button = code[i]
-							fireclickdetector(workspace.Map.OriginOffice.Door.Keypad.Buttons[Button].ClickDetector)
-							wait(0.3)
-						end
-						fireclickdetector(workspace.Map.OriginOffice.Door.Keypad.Buttons.Enter.ClickDetector)
-						game:GetService("TeleportService"):Teleport(6403373529)
-					]])
-				end
-				game:GetService("TeleportService"):Teleport(9431156611)
-			end,
-			No = function()
-				return
+		GUI:Prompt{
+		Followup = false,
+		Title = "Get Chain",
+		Text = "This will make you leave the game temporarily.",
+		Buttons = {
+		Yes = function()
+			local teleportFunc = queueonteleport or queue_on_teleport
+			if teleportFunc then
+				teleportFunc([[
+					if not game:IsLoaded() then
+						game.Loaded:Wait()
+					end
+					repeat wait() until game.Players.LocalPlayer
+					code = {}
+					for i,v in pairs(workspace.Map:WaitForChild("CodeBrick").SurfaceGui:GetChildren()) do
+						if v.Name == "IMGTemplate" then
+        						if v.Image == "http://www.roblox.com/asset/?id=9648769161" then
+            							table.insert(code, "4")
+        						elseif v.Image == "http://www.roblox.com/asset/?id=9648765536" then
+            							table.insert(code, "2")
+        						elseif v.Image == "http://www.roblox.com/asset/?id=9648762863" then
+            							table.insert(code, "3")
+        						elseif v.Image == "http://www.roblox.com/asset/?id=9648759883" then
+            							table.insert(code, "9")
+        						elseif v.Image == "http://www.roblox.com/asset/?id=9648755440" then
+            							table.insert(code, "8")
+        						elseif v.Image == "http://www.roblox.com/asset/?id=9648752438" then
+            							table.insert(code, "2")
+        						elseif v.Image == "http://www.roblox.com/asset/?id=9648749145" then
+            							table.insert(code, "8")
+        						elseif v.Image == "http://www.roblox.com/asset/?id=9648745618" then
+            							table.insert(code, "3")
+        						elseif v.Image == "http://www.roblox.com/asset/?id=9648742013" then
+								table.insert(code, "7")
+        						elseif v.Image == "http://www.roblox.com/asset/?id=9648738553" then
+            							table.insert(code, "8")
+        						elseif v.Image == "http://www.roblox.com/asset/?id=9648734698" then
+            							table.insert(code, "2")
+        						elseif v.Image == "http://www.roblox.com/asset/?id=9648730082" then
+            							table.insert(code, "6")
+        						elseif v.Image == "http://www.roblox.com/asset/?id=9648723237" then
+            							table.insert(code, "3")
+        						elseif v.Image == "http://www.roblox.com/asset/?id=9648718450" then
+            							table.insert(code, "6")
+        						elseif v.Image == "http://www.roblox.com/asset/?id=9648715920" then
+            							table.insert(code, "6")
+       							elseif v.Image == "http://www.roblox.com/asset/?id=9648712563" then
+            							table.insert(code, "2")
+        						end
+    						end
+					end
+					fireclickdetector(workspace.Map.OriginOffice.Door.Keypad.Buttons.Reset.ClickDetector)
+					wait(0.3)
+					for i = 1, 4 do
+						Button = code[i]
+						fireclickdetector(workspace.Map.OriginOffice.Door.Keypad.Buttons[Button].ClickDetector)
+						wait(0.3)
+					end
+					fireclickdetector(workspace.Map.OriginOffice.Door.Keypad.Buttons.Enter.ClickDetector)
+					game:GetService("TeleportService"):Teleport(6403373529)
+				]])
 			end
-			}
-			}
-		else
-			GUI:Notification{
-			Title = "Error",
-			Text = "You must have at least 1,000 slaps.",
-			Duration = 3,
-			Callback = function() end
-			}
+			game:GetService("TeleportService"):Teleport(9431156611)
+		end,
+		No = function()
+			return
 		end
+		}
+		}
 	end
 }
 
