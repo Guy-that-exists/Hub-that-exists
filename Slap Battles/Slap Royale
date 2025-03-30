@@ -1,13 +1,19 @@
 -- Message guythatexists. if you have issues or suggestions, please give credits if you want to use or edit this
 
 if not game:IsLoaded() then
-	ame.Loaded:Wait()
+	game.Loaded:Wait()
 end
 
 game:GetService("GuiService"):ClearError()
 
 local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/Guy-that-exists/mercury-lib-edit/master/src.lua"))()
 
+if game.ReplicatedStorage:FindFirstChild("Ban") then
+	game.ReplicatedStorage.Ban:Destroy()
+end
+if game.ReplicatedStorage:FindFirstChild("GRAB") then
+	game.ReplicatedStorage.GRAB:Destroy()
+end
 if game.ReplicatedStorage.Events:FindFirstChild("AdminGUI") then
 	game.ReplicatedStorage.Events.AdminGUI:Destroy()
 end
@@ -19,6 +25,20 @@ if game.ReplicatedStorage.Events:FindFirstChild("WS") then
 end
 if game.ReplicatedStorage.Events:FindFirstChild("WS2") then
 	game.ReplicatedStorage.Events.WS2:Destroy()
+end
+
+if not workspace:FindFirstChild("AntiVoid") then
+	local antiVoid = Instance.new("Part", workspace)
+	antiVoid.Position = Vector3.new(0, -35, -150)
+	antiVoid.Name = "AntiVoid"
+	antiVoid.Anchored = true
+	antiVoid.CanCollide = false
+	antiVoid.Size = Vector3.new(2048,16,2048)
+	antiVoid.Transparency = 0
+	antiVoid.Material = Enum.Material.ForceField
+	mesh = Instance.new("SpecialMesh", antiVoid)
+	mesh.TextureId = "rbxassetid://5101923607"
+	mesh.Scale = Vector3.new(2048,16,2048)
 end
 
 code = {}
@@ -139,7 +159,7 @@ if not getgenv().slapAura then
 	task.spawn(function()
 		getgenv().slapAura = true
 		getgenv().Range = 0
-		while wait(0.1) do
+		while task.wait() do
 			if getgenv().Range > 0 then
 				for i,v in pairs(User.Character:GetChildren()) do
 					if v.ClassName == "Tool" and v:FindFirstChild("Glove") then
@@ -157,7 +177,6 @@ if not getgenv().slapAura then
 										g:Activate()
                    							end
 								end
-								wait(0.1)
 							end
 						end
 					end
@@ -249,6 +268,21 @@ Protection:Toggle{
 	end
 }
 
+Protection:Toggle{
+	Name = "Anti Void",
+	StartingState = false,
+	Description = "Stops you from falling into the void.",
+	Callback = function(Value) 
+		getgenv().antiVoid = Value
+		workspace.AntiVoid.CanCollide = getgenv().antiVoid
+		if getgenv().antiVoid == true then
+			workspace.AntiVoid.Transparency = 0.75
+		else
+			workspace.AntiVoid.Transparency = 1
+		end
+	end
+}
+
 Badges:Button{
 	Name = "Get Bunker Code",
 	Description = 'Tells you the code needed to open the bunker door.' ,
@@ -273,6 +307,7 @@ Badges:Button{
 		Buttons = {
 		Yes = function()
 			fireclickdetector(workspace.Map.OriginOffice.Door.Keypad.Buttons.Reset.ClickDetector)
+			wait(0.3)
 			for i = 1, 4 do
 				fireclickdetector(workspace.Map.OriginOffice.Door.Keypad.Buttons[code[i]].ClickDetector)
 				wait(0.3)
