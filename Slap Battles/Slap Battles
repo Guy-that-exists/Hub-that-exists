@@ -141,6 +141,15 @@ if not workspace:FindFirstChild("SafeSpot") then
 	safeSpot.Transparency = 0.5
 end
 
+if not workspace:FindFirstChild("SharedSafeSpot") then
+	local sharedSafeSpot = Instance.new("Part", workspace)
+	sharedSafeSpot.Position = Vector3.new(5000, 1000, 5000)
+	sharedSafeSpot.Name = "SharedSafeSpot"
+	sharedSafeSpot.Anchored = true
+	sharedSafeSpot.Size = Vector3.new(512,32,512)
+	sharedSafeSpot.Transparency = 0.5
+end
+
 if not workspace:FindFirstChild("AntiVoid") then
 	local antiVoid = Instance.new("Part", workspace)
 	antiVoid.Position = Vector3.new(0, -27, 0)
@@ -369,6 +378,22 @@ Combat:Toggle{
 						GloveEspText.Text = "Glove: Default"
 					end
 				end
+			end
+			wait()
+		end
+	end
+}
+
+Combat:Toggle{
+	Name = "Auto Enter Arena",
+	StartingState = false,
+	Description = "Automatically enters the arena when you respawn.",
+	Callback = function(Value) 
+		getgenv().autoEnterArena= Value
+		while getgenv().autoEnterArena do
+			if User.Character:FindFirstChild("HumanoidRootPart") and not User.Character:FindFirstChild("entered") then
+				firetouchinterest(User.Character:WaitForChild("HumanoidRootPart"), workspace.Lobby.Teleport1, 0)
+				firetouchinterest(User.Character:WaitForChild("HumanoidRootPart"), workspace.Lobby.Teleport1, 1)
 			end
 			wait()
 		end
@@ -930,6 +955,34 @@ Badges:Button{
 		end
 		}
 		}
+	end
+}
+
+Badges:Toggle{
+	Name = "Bob Farm",
+	StartingState = false,
+	Description = 'Uses Replica ability in the arena, then resets your character.',
+	Callback = function(Value) 
+		getgenv().bobFarm = Value
+		if User.leaderstats.Slaps.Value >= 4000 then
+			while getgenv().bobFarm do
+				firetouchinterest(User.Character:WaitForChild("HumanoidRootPart"), workspace.Lobby.Teleport1, 0)
+				firetouchinterest(User.Character:WaitForChild("HumanoidRootPart"), workspace.Lobby.Teleport1, 1)
+				repeat wait() until User.Character:FindFirstChild("entered")
+				wait(0.2)
+				game.ReplicatedStorage.Duplicate:FireServer()
+				User.Character.Humanoid.Health = 0
+				repeat wait() until User.Character:FindFirstChild("Humanoid") and User.Character.Humanoid.Health ~= 0
+				wait(0.4)
+			end
+		elseif Value == true then
+			GUI:Notification{
+			Title = "Error",
+			Text = "You must have at least 4,000 slaps.",
+			Duration = 3,
+			Callback = function() end
+			}
+		end
 	end
 }
 
@@ -1529,14 +1582,23 @@ Badges:Toggle{
 	Description = 'Takes Siphon orbs whenever they spawn, giving the "Caution: High Voltage" badge.',
 	Callback = function(Value) 
 		getgenv().siphonFarm = Value
-		while getgenv().siphonFarm do
-			for i,v in pairs(workspace:GetChildren()) do
-                    		if v.Name == "SiphonOrb" then
-					firetouchinterest(User.Character:WaitForChild("HumanoidRootPart"), v, 0)
-					firetouchinterest(User.Character:WaitForChild("HumanoidRootPart"), v, 1)
+		if User.leaderstats.Slaps.Value >= 5000 then
+			while getgenv().siphonFarm do
+				for i,v in pairs(workspace:GetChildren()) do
+                    			if v.Name == "SiphonOrb" then
+						firetouchinterest(User.Character:WaitForChild("HumanoidRootPart"), v, 0)
+						firetouchinterest(User.Character:WaitForChild("HumanoidRootPart"), v, 1)
+					end
 				end
+				wait()
 			end
-			wait()
+		elseif Value == true then
+			GUI:Notification{
+			Title = "Error",
+			Text = "You must have at least 5,000 slaps.",
+			Duration = 3,
+			Callback = function() end
+			}
 		end
 	end
 }
@@ -1794,6 +1856,7 @@ Misc:Dropdown{
 	Description = "Teleports to certain locations in the map.",
 	Items = {
 		"Safe Spot",
+		"Shared Safe Spot",
 		{"Arena", CFrame.new(-4, -5, 2)},
 		{"Cannon Island", CFrame.new(262, 34, 192)},
 		{"Default Arena", CFrame.new(123, 360, -3)},
@@ -1805,9 +1868,11 @@ Misc:Dropdown{
 	},
 	Callback = function(Value)
 		if Value == "Plate" then
-			User.Character.HumanoidRootPart.CFrame = workspace.Arena.Plate.CFrame * CFrame.new(0, 2, 0) 
+			User.Character.HumanoidRootPart.CFrame = workspace.Arena.Plate.CFrame * CFrame.new(0, 2, 0)
 		elseif Value == "Safe Spot" then
-			User.Character.HumanoidRootPart.CFrame = workspace.SafeSpot.CFrame * CFrame.new(0, 19, 0) 
+			User.Character.HumanoidRootPart.CFrame = workspace.SafeSpot.CFrame * CFrame.new(0, 19, 0)
+		elseif Value == "Shared Safe Spot" then
+			User.Character.HumanoidRootPart.CFrame = workspace.SharedSafeSpot.CFrame * CFrame.new(0, 19, 0)
 		elseif Value == "Tournament Arena" then
 			if workspace:FindFirstChild("TournamentIsland") then
 				User.Character.HumanoidRootPart.CFrame = CFrame.new(3423, 240, -14)
