@@ -110,8 +110,8 @@ Main:Button{
 Player:Slider{
 	Name = "Walkspeed",
 	Description = "Changes how fast you walk.",
-	Default = 20,
-	Min = 20,
+	Default = 16,
+	Min = 16,
 	Max = 1000,
 	Callback = function(Value) 
 		getgenv().Walkspeed = Value
