@@ -1,0 +1,186 @@
+-- Message guythatexists. if you have issues or suggestions, please give credits if you want to use or edit this
+
+if not game:IsLoaded() then
+	game.Loaded:Wait()
+end
+
+game:GetService("GuiService"):ClearError()
+
+local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/Guy-that-exists/mercury-lib-edit/master/src.lua"))()
+
+local GUI = Mercury:Create{
+	Title = "Hub that exists",
+	Name = "Hub that exists",
+	Size = UDim2.fromOffset(600, 375),
+	Theme = Mercury.Themes.Dark,
+	Link = "hubthatexists"
+}
+
+GUI:Credit{
+	Name = "Guy that exists",
+	Description = "Script Developer, message if you have issues or suggestions.",
+	Discord = "guythatexists."
+}
+
+GUI:Credit{
+	Name = "Script Repository",
+	Description = "Script Repository, please give credit if you wish to use or edit this.",
+	Github = "https://github.com/Guy-that-exists/Hub-that-exists"
+}
+
+local Main = GUI:Tab{
+	Name = "Main",
+	Icon = "rbxassetid://7733960981"
+}
+
+local Stats = GUI:Tab{
+	Name = "Stats",
+	Icon = "rbxassetid://4335489011"
+}
+
+User = game.Players.LocalPlayer
+
+Main:Toggle{
+	Name = "Auto Collect Orbs",
+	StartingState = false,
+	Description = "Gives you the instant collect gamepass for free.",
+	Callback = function(Value) 
+		getgenv().autoCollectOrbs = Value
+		while getgenv().autoCollectOrbs do
+			for i,v in pairs(workspace.EnergyOrbs:GetChildren()) do
+				if User.Character:FindFirstChild("HumanoidRootPart") then
+					v.CanCollide = false
+					v.CFrame = User.Character.HumanoidRootPart.CFrame
+				end
+			end
+			wait()
+		end
+	end
+}
+
+Main:Toggle{
+	Name = "Auto Get Mission",
+	StartingState = false,
+	Description = "Automatically gets the easiest missions.",
+	Callback = function(Value) 
+		getgenv().autoGetMission = Value
+		while getgenv().autoGetMission do
+			if User.PlayerGui.HUD.Missions.Main.Label.Text ~= "Collect Energy" then
+				game.ReplicatedStorage.RemoteEvent:FireServer("RollMission")
+			end
+			wait(0.2)
+		end
+	end
+}
+
+Main:Toggle{
+	Name = "Auto Rebrith",
+	StartingState = false,
+	Description = "Automatically rebirths when you have enough energy.",
+	Callback = function(Value) 
+		getgenv().autoRebirth = Value
+		while getgenv().autoRebirth do
+			game.ReplicatedStorage.RemoteEvent:FireServer("Rebirth")
+			wait()
+		end
+	end
+}
+
+Main:Button{
+	Name = "Infinite Yield",
+	Description = "Loads Infinite Yield, a well-known command line script. This may cause issues." ,
+	Callback = function() 
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+	end
+}
+
+Stats:Textbox{
+	Name = "Collect Range",
+	Description = "How far away you can collect orbs, high values can cause lag.",
+	Placeholder = "Value",
+	Callback = function(Value) 
+		getgenv().collectRange = Value
+		User.Data.Attributes.CollectRange.Value = getgenv().collectRange
+	end
+}
+
+Stats:Textbox{
+	Name = "Lift Power",
+	Description = "How easily you can lift objects.",
+	Placeholder = "Value",
+	Callback = function(Value) 
+		getgenv().liftPower = Value
+		User.Data.Attributes.LiftPower.Value = getgenv().liftPower
+	end
+}
+
+Stats:Toggle{
+	Name = "Keep Stats",
+	StartingState = false,
+	Description = "Doesn't let your stats get changed.",
+	Callback = function(Value) 
+		getgenv().keepStats = Value
+		while getgenv().keepStats do
+			if User.Data.Attributes.CollectRange.Value ~= getgenv().collectRange then
+				User.Data.Attributes.CollectRange.Value = getgenv().collectRange
+			elseif User.Data.Attributes.LiftPower.Value ~= getgenv().liftPower then
+				User.Data.Attributes.LiftPower.Value = getgenv().liftPower
+                	end
+			wait()
+		end
+	end
+}
+
+for i,v in pairs(game.CoreGui:GetChildren()) do
+	if v.Name == "Mercury" then
+		for i,c in pairs(v:GetDescendants()) do
+			if c.ClassName == "Frame" and c.BackgroundTransparency ~= 1 then
+				c.BackgroundTransparency = 0.5
+			elseif c.ClassName == "TextButton" and c.BackgroundTransparency ~= 1 then
+				c.BackgroundTransparency = 0.5
+			end
+		end
+	end
+end
+
+if game:GetService("UserInputService").TouchEnabled == true and not game.CoreGui:FindFirstChild("MercuryMobileButton") then
+	local mobileButton = Instance.new("ScreenGui", gethui())
+	mobileButton.Name = "MercuryMobileButton"
+
+	local button = Instance.new("ImageButton", mobileButton)
+	button.Size = UDim2.fromOffset(50, 50)
+	button.Position = UDim2.fromOffset(50, 50)
+	button.Draggable = true
+	button.BackgroundColor3 = Color3.fromRGB(50, 50, 55)
+	button.BackgroundTransparency = 0.5
+
+	local uiCorner = Instance.new("UICorner", button)
+	uiCorner.CornerRadius = UDim.new(0, 7)
+
+	local icon = Instance.new("ImageLabel", button)
+	icon.Size = UDim2.fromOffset(25, 25)
+	icon.Position = UDim2.fromScale(0.25, 0.25)
+	icon.BackgroundTransparency = 1
+	icon.Image = "rbxassetid://132049320741473"
+	icon.ImageRectSize = Vector2.new(-1000, 1000)
+	icon.ImageRectOffset = Vector2.new(1000, 0)
+
+	local shadow = Instance.new("ImageLabel", button)
+	shadow.Size = UDim2.new(1, 50, 1, 50)
+	shadow.Position = UDim2.fromOffset(-25, -25)
+	shadow.ZIndex = 0
+	shadow.BackgroundTransparency = 1
+	shadow.ImageTransparency = 0.6
+	shadow.Image = "rbxassetid://6014261993"
+	shadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+	shadow.ScaleType = "Slice"
+	shadow.SliceCenter = Rect.new(50, 50, 450, 450)
+
+	button.MouseButton1Click:Connect(function()
+		if game.CoreGui:FindFirstChild("Mercury") then
+			game:GetService('VirtualInputManager'):SendKeyEvent(true,'Delete',false,game)
+		else
+			button.Parent:Destroy()
+		end
+	end)
+end
