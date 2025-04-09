@@ -52,7 +52,7 @@ Main:Toggle{
 					User.Character.Humanoid:EquipTool(v)
 				end
 			end
-			game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+			User.Character.Humanoid:UnequipTools()
 			task.wait()
 		end
 	end
