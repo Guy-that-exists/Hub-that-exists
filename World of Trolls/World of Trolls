@@ -61,7 +61,7 @@ Main:Toggle{
 Main:Toggle{
 	Name = "Auto Craft Cups",
 	StartingState = false,
-	Description = "Automatically crafts cups into sorrow cups.",
+	Description = "Automatically crafts oil, blood, and mysterious cups into sorrow cups.",
 	Callback = function(Value) 
 		getgenv().autoCraftCups = Value
 		if Value == true then
@@ -69,11 +69,9 @@ Main:Toggle{
 		end
 		while getgenv().autoCraftCups do
 			User.Character.HumanoidRootPart.CFrame = CFrame.new(-432, 8.5, -66)
-			for i,v in pairs(workspace.Map.ForgingCenter.ForgingPlate:GetDescendants()) do
-				if v.ClassName == "ProximityPrompt" then
-					fireproximityprompt(v)
-				end
-			end
+			fireproximityprompt(workspace.Map.ForgingCenter.ForgingPlate.BloodAnvil.ProximityPromptPart.ProximityPrompt)
+			fireproximityprompt(workspace.Map.ForgingCenter.ForgingPlate.MysteriousAnvil.ProximityPromptPart.ProximityPrompt)
+			fireproximityprompt(workspace.Map.ForgingCenter.ForgingPlate.SorrowAnvil.ProximityPromptPart.ProximityPrompt)
 			task.wait()
 		end
 		User.Character.HumanoidRootPart.CFrame = ogLocation
