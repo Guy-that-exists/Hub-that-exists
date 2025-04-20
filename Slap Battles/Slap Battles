@@ -836,6 +836,27 @@ Badges:Button{
 }
 
 Badges:Button{
+	Name = "Complete Easter Egg Hunter Quest",
+	Description = 'Completes the "Easter Egg Hunter" quest.',
+	Callback = function() 
+		if workspace:FindFirstChild("EasterHuntEggs") then
+			for i,v in pairs(workspace.EasterHuntEggs:GetChildren()) do
+				if v:FindFirstChild("ClickDetector") then
+					fireclickdetector(v.ClickDetector)
+				end
+			end
+		else
+			GUI:Notification{
+			Title = "Error",
+			Text = "You must start the quest.",
+			Duration = 3,
+			Callback = function() end
+			}
+		end
+	end
+}
+
+Badges:Button{
 	Name = "Defeat Guide",
 	Description = "Lets you get every Guide-related badge, this will take seven minutes." ,
 	Callback = function() 
@@ -1159,6 +1180,57 @@ Badges:Button{
 		end
 		}
 		}
+	end
+}
+
+Badges:Button{
+	Name = "Get Eggler",
+	Description = 'Gives you the "Egging Over It" badge.',
+	Callback = function() 
+		if workspace:FindFirstChild("EggTeleport") then
+			GUI:Prompt{
+			Followup = false,
+			Title = "Get Eggler",
+			Text = "This will make you leave the game temporarily.",
+			Buttons = {
+			Yes = function()
+				local teleportFunc = queueonteleport or queue_on_teleport
+					if teleportFunc then
+						teleportFunc([[
+							if not game:IsLoaded() then
+								game.Loaded:Wait()
+							end
+							repeat wait() until game.Players.LocalPlayer
+							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(70, 4235, 0)
+							wait(0.5)
+							game.ReplicatedStorage.Remotes.KennethInteract:FireServer("EggifyPlease")
+							workspace.TrialCompletedPoints["Trial 1"].root.Size = Vector3.new(2048, 2048, 2048)
+							workspace.TrialCompletedPoints["Trial 1"].root.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+							workspace.TrialCompletedPoints["Trial 2"].root.Size = Vector3.new(2048, 2048, 2048)
+							workspace.TrialCompletedPoints["Trial 2"].root.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+							workspace.TrialCompletedPoints["Trial 3"].root.Size = Vector3.new(2048, 2048, 2048)
+							workspace.TrialCompletedPoints["Trial 3"].root.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+							wait(2)
+							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(70, 4235, 0)
+							wait(0.5)
+							game.ReplicatedStorage.Remotes.KennethInteract:FireServer("AwardBadge")
+						]])
+					end
+				fireclickdetector(workspace.EggTeleport.ClickDetector)
+			end,
+			No = function()
+				return
+			end
+			}
+			}
+		else
+			GUI:Notification{
+			Title = "Error",
+			Text = 'You complete the "Easter Egg Hunter" quest.',
+			Duration = 3,
+			Callback = function() end
+			}
+		end
 	end
 }
 
