@@ -17,11 +17,6 @@ end
 -- Credits to infinite yield
 queueteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport)
 httprequest = (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or request
-if queueteleport then
-    queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Guy-that-exists/Hub-that-exists/main/Slap%20Battles/Slapple%20Farm'))()")
-else
-    game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Your executor is unsupported.",Icon = "rbxassetid://6031071050",Duration = 15})
-end
 if httprequest then
     local servers = {}
     local req = httprequest({Url = string.format("https://games.roblox.com/v1/games/%d/servers/Public?sortOrder=Desc&limit=25&excludeFullGames=true", game.PlaceId)})
@@ -36,6 +31,11 @@ if httprequest then
     end
 
     if #servers > 0 then
+	if queueteleport then
+    		queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Guy-that-exists/Hub-that-exists/main/Slap%20Battles/Slapple%20Farm'))()")
+	else
+    		game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Your executor is unsupported.",Icon = "rbxassetid://6031071050",Duration = 15})
+	end
         game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, servers[math.random(1, #servers)], game.Players.LocalPlayer)
     else
         game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Unable to find a server, trying again in 30 seconds.",Icon = "rbxassetid://6031071050",Duration = 30})
