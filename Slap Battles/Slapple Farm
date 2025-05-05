@@ -1,6 +1,11 @@
 if not game:IsLoaded() then
     game.Loaded:Wait()
 end
+Bindable = Instance.new("BindableFunction")
+Bindable.OnInvoke = function()
+    Cancel = true
+end
+game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Cancel?",Text = "Would you like to stop slapple farming?",Duration = 999,Callback = Bindable,Button1 = "Yes"})
 repeat task.wait() until game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
 for i, v in pairs(workspace.Arena.island5.Slapples:GetChildren()) do
 	if v.Glove:FindFirstChild("TouchInterest") then
@@ -31,16 +36,20 @@ if httprequest then
     end
 
     if #servers > 0 then
-	if queueteleport then
-    		queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Guy-that-exists/Hub-that-exists/main/Slap%20Battles/Slapple%20Farm'))()")
-	else
-    		game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Your executor is unsupported.",Icon = "rbxassetid://6031071050",Duration = 15})
-	end
-        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, servers[math.random(1, #servers)], game.Players.LocalPlayer)
+        if not Cancel then
+	        if queueteleport then
+    	        queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Guy-that-exists/Hub-that-exists/main/Slap%20Battles/Slapple%20Farm'))()")
+                game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, servers[math.random(1, #servers)], game.Players.LocalPlayer)
+	        else
+    	        game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Your executor is unsupported.",Icon = "rbxassetid://6031071050",Duration = 15})
+	        end
+        end
     else
         game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Unable to find a server, trying again in 31 seconds.",Icon = "rbxassetid://6031071050",Duration = 31})
         wait(31)
-        loadstring(game:HttpGet('https://raw.githubusercontent.com/Guy-that-exists/Hub-that-exists/main/Slap%20Battles/Slapple%20Farm'))()
+	    if not Cancel then
+            loadstring(game:HttpGet('https://raw.githubusercontent.com/Guy-that-exists/Hub-that-exists/main/Slap%20Battles/Slapple%20Farm'))()
+	    end
     end
 else
     game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Your executor is unsupported.",Icon = "rbxassetid://6031071050",Duration = 15})
