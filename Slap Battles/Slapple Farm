@@ -19,7 +19,7 @@ for i, v in pairs(workspace.Arena.island5.Slapples:GetChildren()) do
 		firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Glove, 1)
 	end
 end
--- Credits to infinite yield
+-- Credits to Infinite Yield
 queueteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport)
 httprequest = (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or request
 if httprequest then
@@ -40,6 +40,9 @@ if httprequest then
 	        if queueteleport then
     	        queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Guy-that-exists/Hub-that-exists/main/Slap%20Battles/Slapple%20Farm'))()")
                 game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, servers[math.random(1, #servers)], game.Players.LocalPlayer)
+                game:GetService("TeleportService").TeleportInitFailed:Connect(function()
+                    game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, servers[math.random(1, #servers)], game.Players.LocalPlayer)
+                end)
 	        else
     	        game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Your executor is unsupported.",Icon = "rbxassetid://6031071050",Duration = 15})
 	        end
