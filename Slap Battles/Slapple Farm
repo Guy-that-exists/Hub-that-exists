@@ -14,14 +14,33 @@ for i, v in pairs(workspace.Arena.island5.Slapples:GetChildren()) do
 		firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Glove, 1)
 	end
 end
-local serverList = {}
-for _, v in ipairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
-	if v.playing and type(v) == "table" and v.maxPlayers > v.playing and v.id ~= game.JobId then
-		serverList[#serverList + 1] = v.id
-	end
-end
-if #serverList > 0 then
-	game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, serverList[math.random(1, #serverList)])
+queueteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport)
+httprequest = (syn and syn.request) or (http and http.request) or http_request or (fluxus and fluxus.request) or request
+if queueteleport then
+    queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/Guy-that-exists/Hub-that-exists/main/Slap%20Battles/Slapple%20Farm'))()")
 else
-    error("No servers found")
+    game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Your executor is unsupported.",Icon = "rbxassetid://6031071050",Duration = 15})
+end
+if httprequest then
+    local servers = {}
+    local req = httprequest({Url = string.format("https://games.roblox.com/v1/games/%d/servers/Public?sortOrder=Desc&limit=50&excludeFullGames=true", game.PlaceId)})
+    local body = game:GetService("HttpService"):JSONDecode(req.Body)
+
+    if body and body.data then
+        for i, v in next, body.data do
+            if type(v) == "table" and tonumber(v.playing) and tonumber(v.maxPlayers) and v.id ~= game.JobId then
+                table.insert(servers, 1, v.id)
+            end
+        end
+    end
+
+    if #servers > 0 then
+        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, servers[math.random(1, #servers)], game.Players.LocalPlayer)
+    else
+        game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Unable to find a server, trying again in 30 seconds.",Icon = "rbxassetid://6031071050",Duration = 30})
+        wait(30)
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/Guy-that-exists/Hub-that-exists/main/Slap%20Battles/Slapple%20Farm'))()
+    end
+else
+    game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Your executor is unsupported.",Icon = "rbxassetid://6031071050",Duration = 15})
 end
