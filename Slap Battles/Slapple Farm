@@ -49,8 +49,8 @@ if httprequest then
 			end
 		end
 	else
-		game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Unable to find a server, trying again in 35 seconds.",Icon = "rbxassetid://6031071050",Duration = 35})
-        	wait(35)
+		game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Unable to find a server, trying again.",Icon = "rbxassetid://6031071050",Duration = 1})
+        	wait(1)
 		if not Cancel then
 			loadstring(game:HttpGet('https://raw.githubusercontent.com/Guy-that-exists/Hub-that-exists/main/Slap%20Battles/Slapple%20Farm'))()
 		end
