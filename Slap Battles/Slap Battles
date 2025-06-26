@@ -4,8 +4,6 @@ if not game:IsLoaded() then
 	game.Loaded:Wait()
 end
 
-game:GetService("GuiService"):ClearError()
-
 local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/Guy-that-exists/mercury-lib-edit/master/src.lua"))()
 
 if game.ReplicatedStorage:FindFirstChild("AdminGUI") then
@@ -273,27 +271,25 @@ if not getgenv().slapAura then
                    			end
 				end
 				for i,v in pairs(game.Players:GetChildren()) do
-					if v ~= User and User.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-						if v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("Ragdolled") and not v.Character.HumanoidRootPart:FindFirstChild("BlockedShield") and not v.Character:FindFirstChild("Counterd") and not v.Character:FindFirstChild("Mirage") and not v.Character:FindFirstChild("rock") and not usingParry(v) and v.Character.Ragdolled.Value == false and v.Character.isInArena.Value == true then
-							if not v.Character:FindFirstChild("Reversed") or User.leaderstats.Glove.Value == "Error" then
-								Magnitude = (User.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-                        					if Magnitude <= getgenv().Range then
-									if User.Character:FindFirstChild("Default") or User.Backpack:FindFirstChild("Default") then
-										game.ReplicatedStorage.b:FireServer(v.Character.HumanoidRootPart, true)
-									elseif slapRemotes[User.leaderstats.Glove.Value] then
-										slapRemotes[User.leaderstats.Glove.Value]:FireServer(v.Character.HumanoidRootPart, true)
-									elseif User.leaderstats.Glove.Value == "Boxer" then
-										game.ReplicatedStorage.Events.Boxing:FireServer(v.Character, true)
-									else
-										game.ReplicatedStorage.GeneralHit:FireServer(v.Character.HumanoidRootPart, true)
-									end
-									for i,g in pairs(User.Character:GetChildren()) do
-										if g.ClassName == "Tool" and g:FindFirstChild("Glove") then
-											g:Activate()
-                   								end
-									end
-									wait(0.1)
+					if v ~= User and User.Character:FindFirstChild("HumanoidRootPart") then
+						if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("Ragdolled") and not v.Character.HumanoidRootPart:FindFirstChild("BlockedShield") and not v.Character:FindFirstChild("Counterd") and not v.Character:FindFirstChild("Mirage") and not v.Character:FindFirstChild("rock") and not usingParry(v) and (not v.Character:FindFirstChild("Reversed") or User.leaderstats.Glove.Value == "Error") and v.Character.Ragdolled.Value == false and v.Character.isInArena.Value == true then
+							Magnitude = (User.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+                        				if Magnitude <= getgenv().Range then
+								if User.Character:FindFirstChild("Default") or User.Backpack:FindFirstChild("Default") then
+									game.ReplicatedStorage.b:FireServer(v.Character.HumanoidRootPart)
+								elseif slapRemotes[User.leaderstats.Glove.Value] then
+									slapRemotes[User.leaderstats.Glove.Value]:FireServer(v.Character.HumanoidRootPart, true)
+								elseif User.leaderstats.Glove.Value == "Boxer" then
+									game.ReplicatedStorage.Events.Boxing:FireServer(v.Character, true)
+								else
+									game.ReplicatedStorage.GeneralHit:FireServer(v.Character.HumanoidRootPart, true)
 								end
+								for i,g in pairs(User.Character:GetChildren()) do
+									if g.ClassName == "Tool" and g:FindFirstChild("Glove") then
+										g:Activate()
+                   							end
+								end
+								wait(0.1)
 							end
 						end
 					end
@@ -342,6 +338,562 @@ Combat:Button{
 		end
 		}
 		}
+	end
+}
+
+if not getgenv().Cooldown then
+	getgenv().Cooldown = 999
+end
+
+Combat:Toggle{
+	Name = "Ability Spam",
+	StartingState = false,
+	Description = "Spams the ability of the glove you're currently using, do not toggle quickly.",
+	Callback = function(Value) 
+		getgenv().abilitySpam = Value
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Admin" do
+			game.ReplicatedStorage.AdminAbility:FireServer(adminAbility)
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Berserk" do
+			if User.Character:FindFirstChild("Humanoid") and User.Backpack:FindFirstChild("Berserk") then
+				User.Character.Humanoid:EquipTool(User.Backpack.Berserk)
+			end
+			game.ReplicatedStorage.BerserkCharge:FireServer(User.Character.Berserk)
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Bind" do
+			local players = {}
+			for i, v in pairs(game.Players:GetChildren()) do
+				if v ~= User and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("Ragdolled") and not v.Character.HumanoidRootPart:FindFirstChild("BlockedShield") and not v.Character:FindFirstChild("Counterd") and not v.Character:FindFirstChild("Mirage") and not v.Character:FindFirstChild("rock") and not not v.Character:FindFirstChild("Reversed") and not usingParry(v) and v.Character.Ragdolled.Value == false and v.Character.isInArena.Value == true then
+					table.insert(players, v)
+				end
+			end
+			if #players ~= 0 then
+				local target = players[math.random(#players)]
+				game.ReplicatedStorage.GeneralAbility:FireServer("default",{goal = target.Character.HumanoidRootPart.CFrame, origin = target.Character.HumanoidRootPart.CFrame * CFrame.new(0,5,0)})
+			end
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Bomb" do
+			if getgenv().Cooldown >= 31 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				game.ReplicatedStorage.BombThrow:FireServer()
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Boogie" do
+			game.ReplicatedStorage.BoogieBall:FireServer()
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Boxer" do
+			game.ReplicatedStorage.GeneralAbility:FireServer()
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Brick" do
+			if getgenv().Cooldown >= 11 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				game.ReplicatedStorage.lbrick:FireServer()
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "bus" do
+			if getgenv().Cooldown >= 51 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				game.ReplicatedStorage.busmoment:FireServer()
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Charge" do
+			if getgenv().Cooldown >= 31 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				if User.Character:FindFirstChild("Humanoid") and User.Backpack:FindFirstChild("Charge") then
+					User.Character.Humanoid:EquipTool(User.Backpack.Charge)
+				end
+				game.ReplicatedStorage.GeneralAbility:FireServer(User.Character.Charge)
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Counter" do
+			game.ReplicatedStorage.Counter:FireServer()
+			wait()
+		end
+		while getgenv().abilitySpam and (User.leaderstats.Glove.Value == "Diamond" or User.leaderstats.Glove.Value == "MEGAROCK" or User.leaderstats.Glove.Value == "CUSTOM") do
+			game.ReplicatedStorage.Rockmode:FireServer()
+			task.wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Divebomb" do
+			local players = {}
+			for i, v in pairs(game.Players:GetChildren()) do
+				if v ~= User and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("Ragdolled") and not v.Character.HumanoidRootPart:FindFirstChild("BlockedShield") and not v.Character:FindFirstChild("Counterd") and not v.Character:FindFirstChild("Mirage") and not v.Character:FindFirstChild("rock") and not v.Character:FindFirstChild("Reversed") and not usingParry(v) and v.Character.isInArena.Value == true then
+					table.insert(players, v)
+				end
+			end
+			if #players ~= 0 then
+				local target = players[math.random(#players)]
+				game.ReplicatedStorage.RocketJump:InvokeServer({chargeAlpha = 0, rocketJump = true})
+				game.ReplicatedStorage.RocketJump:InvokeServer({explosionAlpha = 1, explosion = true, position = target.Character.HumanoidRootPart.Position})
+			end
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Dominance" do
+			if getgenv().Cooldown >= 31 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				if User.Character:FindFirstChild("HumanoidRootPart") then
+					game.ReplicatedStorage.DominanceAc:FireServer(User.Character.HumanoidRootPart.Position)
+				end
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Draw4" do
+			game.ReplicatedStorage.GeneralAbility:FireServer()
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Druid" do
+			game.ReplicatedStorage.GeneralAbility:FireServer()
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Eggler" do
+			game.ReplicatedStorage.GeneralAbility:FireServer()
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "fish" do
+			if getgenv().Cooldown >= 31 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				game.ReplicatedStorage.GeneralAbility:FireServer()
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Flamarang" do
+			if getgenv().Cooldown >= 61 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				game.ReplicatedStorage.GeneralAbility:FireServer()
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Flash" do
+			if getgenv().Cooldown >= 21 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				game.ReplicatedStorage.FlashTeleport:FireServer()
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Fort" do
+			if getgenv().Cooldown >= 31 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				game.ReplicatedStorage.Fortlol:FireServer()
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Frostbite" do
+			game.ReplicatedStorage.GeneralAbility:FireServer(1)
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Glitch" do
+			if getgenv().Cooldown >= 41 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				game.ReplicatedStorage.GeneralAbility:FireServer()
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Golden" do
+			if getgenv().Cooldown >= 51 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				game.ReplicatedStorage.Goldify:FireServer()
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Hallow Jack" do
+			if getgenv().Cooldown >= 31 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				game.ReplicatedStorage.Hallow:FireServer()
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Hexa" do
+			game.ReplicatedStorage.GeneralAbility:FireServer()
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Jerry" do
+			game.ReplicatedStorage.GeneralAbility:FireServer(CFrame.new())
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Jester" do
+			game.ReplicatedStorage.GeneralAbility:FireServer("Ability1")
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Jet" do
+			if getgenv().Cooldown >= 51 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				local players = {}
+				for i, v in pairs(game.Players:GetChildren()) do
+					if v ~= User and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("Ragdolled") and not v.Character.HumanoidRootPart:FindFirstChild("BlockedShield") and not v.Character:FindFirstChild("Counterd") and not v.Character:FindFirstChild("Mirage") and not v.Character:FindFirstChild("rock") and not v.Character:FindFirstChild("Reversed") and not usingParry(v) and v.Character.Ragdolled.Value == false and v.Character.isInArena.Value == true then
+						local Magnitude = (User.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+						if Magnitude < 100 then
+							table.insert(players, v)
+						end
+					end
+				end
+				if #players ~= 0 then
+					local target = players[math.random(#players)]
+					game.ReplicatedStorage.AirStrike:FireServer(target.Character)
+					wait(0.1)
+					getgenv().Cooldown = getgenv().Cooldown + 1
+				end
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Kinetic" do
+			if getgenv().Cooldown >= 61 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				User.Character.Torso.Anchored = true
+				for i = 1,100 do
+					game.ReplicatedStorage.SelfKnockback:FireServer({["Force"] = -99})
+					wait(0.05)
+				end
+				wait(1)
+				User.Character.Torso.Anchored = false
+				wait(1)
+				if User.Character:FindFirstChild("Humanoid") and User.Backpack:FindFirstChild("Kinetic") then
+					User.Character.Humanoid:EquipTool(User.Backpack.Kinetic)
+				end
+				game.ReplicatedStorage.KineticExpl:FireServer(User.Character.Kinetic)
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Kraken" do
+			game.ReplicatedStorage.KrakenArm:FireServer()
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Lamp" do
+			game.ReplicatedStorage.GeneralAbility:FireServer()
+			task.wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Mail" do
+			if getgenv().Cooldown >= 31 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				game.ReplicatedStorage.MailSend:FireServer()
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "MATERIALIZE" do
+			if getgenv().Cooldown >= 31 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				if User.Character:FindFirstChild("HumanoidRootPart") then
+					game.ReplicatedStorage.GeneralAbility:FireServer(User.Character.HumanoidRootPart.Position)
+				end
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Mitten" do
+			if getgenv().Cooldown >= 16 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				game.ReplicatedStorage.MittenA:FireServer(true)
+				wait(1.55)
+				game.ReplicatedStorage.MittenA:FireServer(false)
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "🗿" do
+			if getgenv().Cooldown >= 31 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				local players = {}
+				for i, v in pairs(game.Players:GetChildren()) do
+					if v ~= User and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("Ragdolled") and not v.Character.HumanoidRootPart:FindFirstChild("BlockedShield") and not v.Character:FindFirstChild("Counterd") and not v.Character:FindFirstChild("Mirage") and not v.Character:FindFirstChild("rock") and not v.Character:FindFirstChild("Reversed") and not usingParry(v) and v.Character.Ragdolled.Value == false and v.Character.isInArena.Value == true then
+						table.insert(players, v)
+					end
+				end
+				if #players ~= 0 then
+					local target = players[math.random(#players)]
+					game.ReplicatedStorage.GeneralAbility:FireServer(CFrame.new(target.Character.HumanoidRootPart.CFrame.X, -5.6, target.Character.HumanoidRootPart.CFrame.Z + 5))
+					wait(0.1)
+					getgenv().Cooldown = getgenv().Cooldown + 1
+				end
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Mouse" do
+			local players = {}
+			for i, v in pairs(game.Players:GetChildren()) do
+				if v ~= User and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("Ragdolled") and not v.Character.HumanoidRootPart:FindFirstChild("BlockedShield") and not v.Character:FindFirstChild("Counterd") and not v.Character:FindFirstChild("Mirage") and not v.Character:FindFirstChild("rock") and not v.Character:FindFirstChild("Reversed") and not usingParry(v) and v.Character.Ragdolled.Value == false and v.Character.isInArena.Value == true then
+					table.insert(players, v)
+				end
+			end
+			if #players ~= 0 then
+				local target = players[math.random(#players)]
+				game.ReplicatedStorage.Events.mousetrap:FireServer({cf = target.Character.HumanoidRootPart.CFrame, data = {item = "mouse trap"}})
+			end
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Null" do
+			game.ReplicatedStorage.NullAbility:FireServer()
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Phase" do
+			if getgenv().Cooldown >= 55 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				game.ReplicatedStorage.PhaseA:FireServer()
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Pillow" do
+			game.ReplicatedStorage.Events.PillowEvent:FireServer("AddPillow")
+			task.wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Plank" do
+			if User.Character:FindFirstChild("HumanoidRootPart") then
+				game.ReplicatedStorage.GeneralAbility:FireServer(User.Character.HumanoidRootPart.CFrame, vector.create(999, 0, 0))
+			end
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Poltergeist" do
+			game.ReplicatedStorage.GeneralAbility:FireServer("ability2")
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Pusher" do
+			if getgenv().Cooldown >= 51 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				game.ReplicatedStorage.PusherWall:FireServer()
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Quake" do
+			game.ReplicatedStorage.QuakeQuake:FireServer({start = true})
+			game.ReplicatedStorage.QuakeQuake:FireServer({finished = true})
+			task.wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Rattlebones" do
+			if getgenv().Cooldown >= 31 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				game.ReplicatedStorage.GeneralAbility:FireServer()
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "[REDACTED]" do
+			if getgenv().Cooldown >= 41 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				game.ReplicatedStorage.Well:FireServer()
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Retro" do
+			game.ReplicatedStorage.RetroAbility:FireServer(retroAbility)
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Rhythm" do
+			game.ReplicatedStorage.rhythmevent:FireServer("AoeExplosion", 0)
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "rob" do
+			game.ReplicatedStorage.rob:FireServer()
+			if User.PlayerGui:FindFirstChild("whiteframe") then
+				User.PlayerGui.whiteframe:Destroy()
+			end
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Rojo" do
+			game.ReplicatedStorage.RojoAbility:FireServer("Release")
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Run" do
+			if getgenv().Cooldown >= 31 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				if User.Character:FindFirstChild("HumanoidRootPart") then
+					game.ReplicatedStorage.GeneralAbility:FireServer(User.Character.HumanoidRootPart.Position)
+				end
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Santa" do
+			game.ReplicatedStorage.GeneralAbility:FireServer("milk")
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Scythe" do
+			game.ReplicatedStorage.GeneralAbility:FireServer()
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Shard" do
+			if getgenv().Cooldown >= 31 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				game.ReplicatedStorage.Shards:FireServer()
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Silly" do
+			game.ReplicatedStorage.GeneralAbility:FireServer()
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Siphon" do
+			local players = {}
+			for i, v in pairs(game.Players:GetChildren()) do
+				if v ~= User and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("Ragdolled") and not v.Character.HumanoidRootPart:FindFirstChild("BlockedShield") and not v.Character:FindFirstChild("Counterd") and not v.Character:FindFirstChild("Mirage") and not v.Character:FindFirstChild("rock") and not v.Character:FindFirstChild("Reversed") and not usingParry(v) and v.Character.isInArena.Value == true then
+					table.insert(players, v)
+				end
+			end
+			if #players ~= 0 then
+				local target = players[math.random(#players)]
+				game.ReplicatedStorage.Events.Siphon:FireServer({cf = target.Character.HumanoidRootPart.CFrame})
+			end
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Slapple" do
+			if getgenv().Cooldown >= 31 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				if User.Character:FindFirstChild("HumanoidRootPart") then
+					game.ReplicatedStorage.funnyTree:FireServer(User.Character.HumanoidRootPart.Position)
+				end
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Slasher" do
+			game.ReplicatedStorage.Events.slasher:FireServer()
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Slender" do
+			game.ReplicatedStorage.GeneralAbility:FireServer()
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Space" do
+			game.ReplicatedStorage.ZeroGSound:FireServer()
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Spoonful" do
+			local players = {}
+			for i, v in pairs(game.Players:GetChildren()) do
+				if v ~= User and v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("Ragdolled") and not v.Character.HumanoidRootPart:FindFirstChild("BlockedShield") and not v.Character:FindFirstChild("Counterd") and not v.Character:FindFirstChild("Mirage") and not v.Character:FindFirstChild("rock") and not v.Character:FindFirstChild("Reversed") and not usingParry(v) and v.Character.Ragdolled.Value == false and v.Character.isInArena.Value == true then
+					table.insert(players, v)
+				end
+			end
+			if #players ~= 0 then
+				local target = players[math.random(#players)]
+				game.ReplicatedStorage.GeneralAbility:FireServer({cf = target.Character.HumanoidRootPart.CFrame, vfx = "crash", state = "vfx"})
+			end
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Stun" do
+			if getgenv().Cooldown >= 101 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				if User.Character:FindFirstChild("Humanoid") and User.Backpack:FindFirstChild("Stun") then
+					User.Character.Humanoid:EquipTool(User.Backpack.Stun)
+				end
+				game.ReplicatedStorage.StunR:FireServer(User.Character.Stun)
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Swapper" do
+			if getgenv().Cooldown >= 51 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				game.ReplicatedStorage.SLOC:FireServer()
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Swashbuckler" do
+			game.ReplicatedStorage.Events.Swashbuckler_coins:FireServer()
+			game.ReplicatedStorage.Events.Swashbuckler:FireServer()
+			task.wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Tank" do
+			game.ReplicatedStorage.GeneralAbility:FireServer()
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Tinkerer" do
+			game.ReplicatedStorage.GeneralAbility:FireServer()
+			wait()
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Trap" do
+			if getgenv().Cooldown >= 21 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				game.ReplicatedStorage.funnyhilariousbeartrap:FireServer()
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Voodoo" do
+			game.ReplicatedStorage.GeneralAbility:FireServer()
+			wait(7.05)
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Warp" do
+			if getgenv().Cooldown >= 41 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				game.ReplicatedStorage.WLOC:FireServer()
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Za Hando" do
+			if getgenv().Cooldown >= 51 or getgenv().cooldownGlove ~= User.leaderstats.Glove.Value then
+				getgenv().Cooldown = 0
+				game.ReplicatedStorage.Erase:FireServer()
+			end
+			getgenv().cooldownGlove = User.leaderstats.Glove.Value
+			wait(0.1)
+			getgenv().Cooldown = getgenv().Cooldown + 1
+		end
+		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "ZZZZZZZ" do
+			game.ReplicatedStorage.ZZZZZZZSleep:FireServer()
+			task.wait()
+		end
+		if getgenv().abilitySpam == false then
+			repeat wait(0.1)
+			if getgenv().abilitySpam == false then
+				getgenv().Cooldown = getgenv().Cooldown + 1
+			end
+			until getgenv().abilitySpam == true or getgenv().Cooldown >= 501
+		end
 	end
 }
 
@@ -430,7 +982,7 @@ Combat:Dropdown{
 }
 
 
-retroAbility = "Ban Hammer"
+retroAbility = "Rocket Launcher"
 
 Combat:Toggle{
 	Name = "Retro Spam",
@@ -1402,10 +1954,10 @@ Badges:Button{
 	Name = "Get Lamp",
 	Description = 'Gives you the "Friend of the Dark" badge.' ,
 	Callback = function() 
-		if User.leaderstats.Slaps.Value < 70 then
+		if User.leaderstats.Slaps.Value < 25 then
 			GUI:Notification{
 			Title = "Error",
-			Text = "You must have at least 70 slaps.",
+			Text = "You must have at least 25 slaps.",
 			Duration = 3,
 			Callback = function() end
 			}
@@ -1599,7 +2151,7 @@ Badges:Button{
 					User.Character.HumanoidRootPart.CFrame = v.CFrame
 				end
 			end
-			wait(0.25)
+			wait(0.5)
 			User.Character.HumanoidRootPart.CFrame = ogLocation
 			if not User.Character:FindFirstChild("entered") then
 				fireclickdetector(workspace.Lobby[ogGlove].ClickDetector)
@@ -1768,7 +2320,7 @@ Badges:Button{
 						game:GetService("TeleportService"):Teleport(6403373529)
 					]])
 				end
-			User.Character.HumanoidRootPart.CFrame = CFrame.new(-824, 307, -2)
+			User.Character.HumanoidRootPart.CFrame = CFrame.new(-924, 307, -2)
 		end,
 		No = function()
 			return
@@ -1839,6 +2391,20 @@ Gloves:Button{
 			end
 			}
 			}
+		end
+	end
+}
+
+Gloves:Toggle{
+	Name = "Slender VFX Spam",
+	StartingState = false,
+	Description = "Spams Slender's VFX, which works on every glove.",
+	Callback = function(Value) 
+		getgenv().slenderVFXSpam = Value
+		while getgenv().slenderVFXSpam do
+			anim = game.ReplicatedStorage.Events.tendrils:InvokeServer().AnimationController.Animator:LoadAnimation(game.ReplicatedStorage.Assets.Slender.Animations.slender_tendrils)
+			anim:Play(0.1, 1, 1.3)
+			task.wait()
 		end
 	end
 }
@@ -1932,7 +2498,7 @@ Misc:Dropdown{
 		{"Arena", CFrame.new(-4, -5, 2)},
 		{"Cannon Island", CFrame.new(262, 34, 192)},
 		{"Default Arena", CFrame.new(123, 360, -3)},
-		{"Lobby", CFrame.new(-895, 328, -2)},
+		{"Lobby", CFrame.new(-995, 328, -2)},
 		"Plate",
 		{"Slapple Island", CFrame.new(-395, 51, -14)},
 		"Tournament Arena",
@@ -1992,6 +2558,26 @@ Misc:Dropdown{
 	end
 }
 
+Misc:Button{
+	Name = "Serverhop Slapple Farm",
+	Description = 'Teleports you from server to server to collect slapples.' ,
+	Callback = function() 
+		GUI:Prompt{
+		Followup = false,
+		Title = "Start Farm",
+		Text = "Leave the game when you want to stop the farm.",
+		Buttons = {
+		Yes = function()
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/Guy-that-exists/Hub-that-exists/main/Slap%20Battles/Slapple%20Farm"))()
+		end,
+		No = function()
+			return
+		end
+		}
+		}
+	end
+}
+
 Misc:Toggle{
 	Name = "Slapple Farm",
 	StartingState = false,
@@ -2000,7 +2586,7 @@ Misc:Toggle{
 		getgenv().slappleFarm = Value
 		while getgenv().slappleFarm do
 			for i, v in pairs(workspace.Arena.island5.Slapples:GetChildren()) do
-				if v.Glove:FindFirstChild("TouchInterest") then
+				if v.Glove:FindFirstChild("TouchInterest") and User.Character:FindFirstChild("HumanoidRootPart") then
 					firetouchinterest(User.Character.HumanoidRootPart, v.Glove, 0)
 					firetouchinterest(User.Character.HumanoidRootPart, v.Glove, 1)
 				end
@@ -2088,7 +2674,7 @@ Misc:Textbox{
 	Callback = function(Value) 
 		getgenv().Nametag = Value
 		if getgenv().Nametag == "" and User.Character:FindFirstChild("Head") and User.Character.Head:FindFirstChild("Nametag") then
-			User.Character.Head.Nametag.TextLabel.Text = User.Name
+			User.Character.Head.Nametag.Labels.TopLabel.Text = User.Name
 		end
 	end
 }
@@ -2097,8 +2683,8 @@ if not getgenv().changeNametag then
 	task.spawn(function()
 		getgenv().changeNametag = true
 		while task.wait() do
-			if getgenv().Nametag and getgenv().Nametag ~= "" and User.Character:FindFirstChild("Head") and User.Character.Head:FindFirstChild("Nametag") and User.Character.Head.Nametag.TextLabel.Text ~= getgenv().Nametag then
-				User.Character.Head.Nametag.TextLabel.Text = getgenv().Nametag
+			if getgenv().Nametag and getgenv().Nametag ~= "" and User.Character:FindFirstChild("Head") and User.Character.Head:FindFirstChild("Nametag") and User.Character.Head.Nametag.Labels.TopLabel.Text ~= getgenv().Nametag then
+				User.Character.Head.Nametag.Labels.TopLabel.Text = getgenv().Nametag
 			end
 		end
 	end)
