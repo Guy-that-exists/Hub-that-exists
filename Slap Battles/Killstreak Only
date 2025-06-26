@@ -4,8 +4,6 @@ if not game:IsLoaded() then
 	game.Loaded:Wait()
 end
 
-game:GetService("GuiService"):ClearError()
-
 local Mercury = loadstring(game:HttpGet("https://raw.githubusercontent.com/Guy-that-exists/mercury-lib-edit/master/src.lua"))()
 
 if game.ReplicatedStorage:FindFirstChild("AdminGUI") then
@@ -148,14 +146,6 @@ Combat:Slider{
 	end
 }
 
-function usingParry(player)
-	for i,v in pairs(player.Character.Humanoid:GetPlayingAnimationTracks()) do
-		if v.Animation.AnimationId == "rbxassetid://16102819260" then
-			return true
-		end
-	end
-end
-
 if not getgenv().slapAura then
 	task.spawn(function()
 		getgenv().slapAura = true
@@ -168,23 +158,21 @@ if not getgenv().slapAura then
                    			end
 				end
 				for i,v in pairs(game.Players:GetChildren()) do
-					if v ~= User and User.Character:FindFirstChild("HumanoidRootPart") and v.Character then
-						if v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("Ragdolled") and not v.Character.HumanoidRootPart:FindFirstChild("BlockedShield") and not v.Character:FindFirstChild("Counterd") and not v.Character:FindFirstChild("Mirage") and not v.Character:FindFirstChild("rock") and not usingParry(v) and v.Character.Ragdolled.Value == false and v.Character.isInArena.Value == true  then
-							if not v.Character:FindFirstChild("Reversed") or User.leaderstats.Glove.Value == "Error" then
-								Magnitude = (User.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
-                        					if Magnitude <= getgenv().Range then
-									if User.Character:FindFirstChild("Default") or User.Backpack:FindFirstChild("Default") then
-										game.ReplicatedStorage.b:FireServer(v.Character.HumanoidRootPart, true)
-									else
-										KSHit:FireServer(v.Character.HumanoidRootPart, true)
-									end
-									for i,g in pairs(User.Character:GetChildren()) do
-										if g.ClassName == "Tool" and g:FindFirstChild("Glove") then
-											g:Activate()
-                   								end
-									end
-									wait(0.1)
+					if v ~= User and User.Character:FindFirstChild("HumanoidRootPart") then
+						if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("Ragdolled") and v.Character.Ragdolled.Value == false and v.Character.isInArena.Value == true  then
+							Magnitude = (User.Character.HumanoidRootPart.Position - v.Character.HumanoidRootPart.Position).Magnitude
+                        				if Magnitude <= getgenv().Range then
+								if User.Character:FindFirstChild("Default") or User.Backpack:FindFirstChild("Default") then
+									game.ReplicatedStorage.b:FireServer(v.Character.HumanoidRootPart, true)
+								else
+									KSHit:FireServer(v.Character.HumanoidRootPart, true)
 								end
+								for i,g in pairs(User.Character:GetChildren()) do
+									if g.ClassName == "Tool" and g:FindFirstChild("Glove") then
+										g:Activate()
+                   							end
+								end
+								wait(0.1)
 							end
 						end
 					end
@@ -321,7 +309,7 @@ Combat:Dropdown{
 }
 
 
-retroAbility = "Ban Hammer"
+retroAbility = "Rocket Launcher"
 
 Combat:Toggle{
 	Name = "Retro Spam",
@@ -1053,7 +1041,7 @@ Badges:Button{
 						game:GetService("TeleportService"):Teleport(6403373529)
 					]])
 				end
-			User.Character.HumanoidRootPart.CFrame = CFrame.new(-824, 307, -2)
+			User.Character.HumanoidRootPart.CFrame = CFrame.new(-924, 307, -2)
 		end,
 		No = function()
 			return
@@ -1084,6 +1072,20 @@ Badges:Button{
 	Description = 'Gives you the "The Lone Orange" badge.' ,
 	Callback = function() 
 		fireclickdetector(workspace.Arena.island5.Orange.ClickDetector)
+	end
+}
+
+Gloves:Toggle{
+	Name = "Slender VFX Spam",
+	StartingState = false,
+	Description = "Spams Slender's VFX, which works on every glove.",
+	Callback = function(Value) 
+		getgenv().slenderVFXSpam = Value
+		while getgenv().slenderVFXSpam do
+			anim = game.ReplicatedStorage.Events.tendrils:InvokeServer().AnimationController.Animator:LoadAnimation(game.ReplicatedStorage.Assets.Slender.Animations.slender_tendrils)
+			anim:Play(0.1, 1, 1.3)
+			task.wait()
+		end
 	end
 }
 
@@ -1176,7 +1178,7 @@ Misc:Dropdown{
 		{"Arena", CFrame.new(-4, -5, 2)},
 		{"Cannon Island", CFrame.new(262, 34, 192)},
 		{"Default Arena", CFrame.new(123, 360, -3)},
-		{"Lobby", CFrame.new(-895, 328, -2)},
+		{"Lobby", CFrame.new(-995, 328, -2)},
 		"Plate",
 		{"Slapple Island", CFrame.new(-395, 51, -14)},
 		"Tournament Arena",
@@ -1236,6 +1238,26 @@ Misc:Dropdown{
 	end
 }
 
+Misc:Button{
+	Name = "Serverhop Slapple Farm",
+	Description = 'Teleports you from server to server to collect slapples.' ,
+	Callback = function() 
+		GUI:Prompt{
+		Followup = false,
+		Title = "Start Farm",
+		Text = "Leave the game when you want to stop the farm.",
+		Buttons = {
+		Yes = function()
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/Guy-that-exists/Hub-that-exists/main/Slap%20Battles/Slapple%20Farm"))()
+		end,
+		No = function()
+			return
+		end
+		}
+		}
+	end
+}
+
 Misc:Toggle{
 	Name = "Slapple Farm",
 	StartingState = false,
@@ -1244,7 +1266,7 @@ Misc:Toggle{
 		getgenv().slappleFarm = Value
 		while getgenv().slappleFarm do
 			for i, v in pairs(workspace.Arena.island5.Slapples:GetChildren()) do
-				if v.Glove:FindFirstChild("TouchInterest") then
+				if v.Glove:FindFirstChild("TouchInterest") and User.Character:FindFirstChild("HumanoidRootPart") then
 					firetouchinterest(User.Character.HumanoidRootPart, v.Glove, 0)
 					firetouchinterest(User.Character.HumanoidRootPart, v.Glove, 1)
 				end
@@ -1332,7 +1354,7 @@ Misc:Textbox{
 	Callback = function(Value) 
 		getgenv().Nametag = Value
 		if getgenv().Nametag == "" and User.Character:FindFirstChild("Head") and User.Character.Head:FindFirstChild("Nametag") then
-			User.Character.Head.Nametag.TextLabel.Text = User.Name
+			User.Character.Head.Nametag.Labels.TopLabel.Text = User.Name
 		end
 	end
 }
@@ -1341,8 +1363,8 @@ if not getgenv().changeNametag then
 	task.spawn(function()
 		getgenv().changeNametag = true
 		while task.wait() do
-			if getgenv().Nametag and getgenv().Nametag ~= "" and User.Character:FindFirstChild("Head") and User.Character.Head:FindFirstChild("Nametag") and User.Character.Head.Nametag.TextLabel.Text ~= getgenv().Nametag then
-				User.Character.Head.Nametag.TextLabel.Text = getgenv().Nametag
+			if getgenv().Nametag and getgenv().Nametag ~= "" and User.Character:FindFirstChild("Head") and User.Character.Head:FindFirstChild("Nametag") and User.Character.Head.Nametag.Labels.TopLabel.Text ~= getgenv().Nametag then
+				User.Character.Head.Nametag.Labels.TopLabel.Text = getgenv().Nametag
 			end
 		end
 	end)
