@@ -343,7 +343,7 @@ Combat:Button{
 
 if not getgenv().Cooldown then
 	getgenv().Cooldown = 999
-	getgenv().Countdown == false
+	getgenv().Countdown = false
 end
 
 Combat:Toggle{
@@ -889,13 +889,13 @@ Combat:Toggle{
 			task.wait()
 		end
 		if getgenv().abilitySpam == false and getgenv().Countdown == false then
-			getgenv().Countdown == true
+			getgenv().Countdown = true
 			repeat wait(0.1)
 			if getgenv().abilitySpam == false then
 				getgenv().Cooldown = getgenv().Cooldown + 1
 			end
 			until getgenv().abilitySpam == true or getgenv().Cooldown >= 501
-			getgenv().Countdown == false
+			getgenv().Countdown = false
 		end
 	end
 }
