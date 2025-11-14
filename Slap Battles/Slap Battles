@@ -804,7 +804,7 @@ Combat:Toggle{
 		end
 		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Space" do
 			game.ReplicatedStorage.ZeroGSound:FireServer()
-			wait()
+			task.wait()
 		end
 		while getgenv().abilitySpam and User.leaderstats.Glove.Value == "Spoonful" do
 			local players = {}
